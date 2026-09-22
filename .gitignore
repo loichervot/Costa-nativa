@@ -45,3 +45,7 @@ next-env.d.ts
 # derivatives and is what the site actually imports. These are only the
 # masters for re-running `npm run prep-images`. Keep your own backup.
 /originals
+
+# Netlify CLI writes .netlify/state.json when you link or create a site.
+# It is machine-local and must not be committed.
+/.netlify

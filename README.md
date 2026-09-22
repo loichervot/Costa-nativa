@@ -7,7 +7,7 @@ The site has one job: make a visitor want the house, then send them to the
 Airbnb listing. It holds no availability, pricing or booking logic — Airbnb is
 the single source of truth for all three.
 
-Next.js 16 · React 19 · Tailwind v4 · English + Spanish · deploys to Vercel.
+Next.js 16 · React 19 · Tailwind v4 · English + Spanish · deploys to Netlify.
 
 ---
 
@@ -98,29 +98,59 @@ photographs supply the saturation, the interface stays warm-neutral.
 
 ---
 
-## Deploying to costa-nativa.com
+## Deploying to Netlify
 
 The domain is registered with GoDaddy and currently serves a GoDaddy Website
 Builder page.
 
-1. Push the repo to GitHub.
-2. Import it at [vercel.com/new](https://vercel.com/new). No configuration
-   needed — the framework, build command and output are all detected.
-3. Add `costa-nativa.com` and `www.costa-nativa.com` under **Settings →
-   Domains**.
-4. **In GoDaddy, turn off the Website Builder site first.** It answers on the
-   apex and will keep winning until it is disabled.
-5. Point DNS at the records Vercel shows you on that screen — typically
-   `A @ → 76.76.21.21` and `CNAME www → cname.vercel-dns.com`. Take them from
-   Vercel rather than from here; they change.
+`netlify.toml` already carries the build command, publish directory and Node
+version, so there is nothing to configure in the UI. Netlify installs the
+Next.js runtime (`@netlify/plugin-nextjs`) itself on every build — do not add
+it to `package.json` or pin it.
 
-DNS usually settles within an hour. Vercel issues the TLS certificate itself.
+### Continuous deployment (recommended)
+
+Every push then rebuilds the site, and pull requests get their own preview URL.
+
+1. Create an empty repo on GitHub and push:
+   ```bash
+   git remote add origin git@github.com:<you>/costa-nativa.git
+   git push -u origin main
+   ```
+2. In Netlify: **Add new project → Import an existing project**, pick the repo.
+3. Accept the detected settings (they come from `netlify.toml`) and deploy.
+
+### Or straight from this machine, no Git host
+
+```bash
+npm i -g netlify-cli
+netlify login
+netlify init      # creates and links the project
+netlify deploy --prod
+```
+
+⚠ If you later connect Git CD, stop using `netlify deploy --prod` — the next
+push to the production branch silently replaces a hand-shipped deploy.
+
+### Pointing costa-nativa.com at it
+
+1. In Netlify: **Domain management → Add a domain**, enter `costa-nativa.com`.
+2. **In GoDaddy, turn off the Website Builder site first.** It answers on the
+   apex and will keep winning until it is disabled.
+3. Follow the DNS records Netlify shows on that screen. Taking them from
+   Netlify rather than from here matters — they differ depending on whether
+   you delegate the whole domain to Netlify DNS or keep GoDaddy's nameservers
+   and add records by hand.
+
+DNS usually settles within an hour. Netlify issues the TLS certificate itself.
 
 ### After it is live
 
 - Submit `https://costa-nativa.com/sitemap.xml` in Google Search Console.
 - Check the OG card with the [sharing debugger](https://developers.facebook.com/tools/debug/).
 - Validate the structured data in the [Rich Results Test](https://search.google.com/test/rich-results).
+- Confirm `https://costa-nativa.com/` lands on `/en`, and on `/es` in a
+  Spanish-language browser.
 
 ---
 

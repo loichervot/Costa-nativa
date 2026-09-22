@@ -1,0 +1,40 @@
+# Netlify build configuration.
+#
+# The Next.js runtime (@netlify/plugin-nextjs) is installed automatically on
+# every build and deliberately not pinned here — Netlify keeps it current, and
+# pinning it strands the site on an old adapter. It turns the page routes into
+# static output, `next/image` into the Netlify Image CDN, and any middleware
+# into an Edge Function.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Next 16 needs Node 20.9+. Pinned so a change to Netlify's default build
+  # image can never quietly break the build.
+  NODE_VERSION = "22"
+
+# ── Root → locale ────────────────────────────────────────────────────────────
+#
+# src/proxy.ts does this locally by reading Accept-Language. It is kept for
+# `npm run dev` and to leave the site host-agnostic, but production does not
+# depend on it: Next 16 renamed `middleware.ts` to `proxy.ts`, and the adapter
+# recognising the new filename is unconfirmed. If it does not, "/" would 404.
+#
+# These two rules make the root redirect the CDN's job instead. They also run
+# before any function, so the redirect costs no cold start. Order matters —
+# Netlify takes the first match, so the Spanish condition has to come first.
+#
+# Scoped to "/" only. A catch-all here would shadow the real routes.
+
+[[redirects]]
+  from = "/"
+  to = "/es"
+  status = 302
+  conditions = { Language = ["es"] }
+
+[[redirects]]
+  from = "/"
+  to = "/en"
+  status = 302
