@@ -134,15 +134,42 @@ push to the production branch silently replaces a hand-shipped deploy.
 
 ### Pointing costa-nativa.com at it
 
-1. In Netlify: **Domain management → Add a domain**, enter `costa-nativa.com`.
-2. **In GoDaddy, turn off the Website Builder site first.** It answers on the
-   apex and will keep winning until it is disabled.
-3. Follow the DNS records Netlify shows on that screen. Taking them from
-   Netlify rather than from here matters — they differ depending on whether
-   you delegate the whole domain to Netlify DNS or keep GoDaddy's nameservers
-   and add records by hand.
+The domain is at GoDaddy on GoDaddy's nameservers (`ns03/ns04.domaincontrol.com`),
+serving a GoDaddy Website Builder page. It carries **no MX, TXT or subdomain
+records** — nothing but the parked site — so moving DNS breaks nothing.
 
-DNS usually settles within an hour. Netlify issues the TLS certificate itself.
+**Use Netlify DNS.** GoDaddy cannot do ALIAS/ANAME at the apex, so keeping
+GoDaddy's nameservers forces the A-record fallback, and Netlify says plainly
+that the apex then misses global CDN routing. Delegating avoids that, and it
+also makes the Website Builder page irrelevant — once the nameservers move,
+GoDaddy's DNS is out of the path entirely.
+
+1. Netlify → **Domain management → Add a domain** → `costa-nativa.com`.
+2. Choose **Set up Netlify DNS**. It prints four nameservers, along the lines
+   of `dns1.p0X.nsone.net` … `dns4.p0X.nsone.net`. They are specific to this
+   zone — copy the ones shown, do not reuse these.
+3. GoDaddy → **My Products → Domains → costa-nativa.com → DNS →
+   Nameservers → Change → I'll use my own nameservers**. Replace all four,
+   save, and confirm the warning.
+4. Back in Netlify, wait for the domain to verify.
+
+Propagation is usually under an hour, occasionally up to 24. Netlify issues
+the Let's Encrypt certificate automatically once the nameservers resolve —
+if HTTPS is still pending after DNS has moved, use **Domain management →
+HTTPS → Verify DNS configuration**.
+
+#### Keeping GoDaddy's nameservers instead
+
+Workable, slightly worse, and needs the Website Builder site switched off
+first or it keeps answering on the apex. In GoDaddy's DNS records:
+
+| Type | Name | Value |
+|---|---|---|
+| A | `@` | `75.2.60.5` |
+| CNAME | `www` | `monumental-strudel-365824.netlify.app` |
+
+Delete the existing parked A records for `@` and `www` first. `75.2.60.5` is
+Netlify's load balancer; take it from Netlify's own screen if it ever differs.
 
 ### After it is live
 
