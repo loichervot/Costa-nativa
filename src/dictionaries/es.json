@@ -32,11 +32,11 @@
   "house": {
     "eyebrow": "La casa",
     "title": "Abierta, y después más abierta.",
-    "body": "El área social no tiene un borde definido. Los muros corredizos se repliegan hasta que la cocina, el sofá y la terraza son una sola habitación, y la brisa atraviesa todo. Los cielos son altos, la luz entra por tres lados y nada queda cerrado a menos que usted lo decida.",
+    "body": "El área social no tiene un borde definido. Las puertas corredizas de vidrio se repliegan hasta que la cocina, el sofá y la terraza son una sola habitación, y la brisa atraviesa todo. Los cielos son altos, la luz entra por tres lados y nada queda cerrado a menos que usted lo decida.",
     "alt": {
       "kitchenLivingWide": "La cocina y la sala integradas, con isla de cuarzo blanco, muebles de madera y una obra enmarcada en la pared del fondo",
       "livingToEntry": "La sala hacia la cocina y la puerta principal de madera maciza, con obras a ambos lados del televisor",
-      "livingPoolView": "La sala con los muros corredizos abiertos, hacia la terraza y la piscina"
+      "livingPoolView": "La sala con las puertas corredizas de vidrio abiertas, hacia la terraza y la piscina"
     }
   },
   "pool": {

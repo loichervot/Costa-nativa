@@ -32,11 +32,11 @@
   "house": {
     "eyebrow": "The house",
     "title": "Open, and then more open.",
-    "body": "The main living space has no hard edge. Sliding walls fold back until the kitchen, the sofa and the terrace are a single room and the breeze moves through all of it. The ceilings are high, light arrives from three sides, and nothing is closed off unless you decide it should be.",
+    "body": "The main living space has no hard edge. Sliding glass doors fold back until the kitchen, the sofa and the terrace are a single room and the breeze moves through all of it. The ceilings are high, light arrives from three sides, and nothing is closed off unless you decide it should be.",
     "alt": {
       "kitchenLivingWide": "The open-plan kitchen and living area, with a white quartz island, wooden cabinetry and a large framed artwork on the far wall",
       "livingToEntry": "The living room looking toward the kitchen and the solid wood front door, with artworks either side of the television",
-      "livingPoolView": "The living room with the sliding walls drawn back, opening onto the terrace and pool beyond"
+      "livingPoolView": "The living room with the sliding glass doors drawn back, opening onto the terrace and pool beyond"
     }
   },
   "pool": {
