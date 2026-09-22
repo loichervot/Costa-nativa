@@ -40,6 +40,7 @@ export function SiteHeader({
     { href: "#rooms", label: nav.rooms },
     { href: "#setting", label: nav.setting },
     { href: "#details", label: nav.details },
+    { href: "#reviews", label: nav.reviews },
   ];
 
   return (
@@ -56,12 +57,22 @@ export function SiteHeader({
           Costa Nativa
         </Link>
 
-        <nav aria-label={nav.sections} className="hidden items-center gap-8 lg:flex">
+        {/*
+          Shown from xl, not lg. Six items fit at 1024px in English but not in
+          Spanish — "Piscina y terraza" and "El entorno" are far longer than
+          their English counterparts, and the row wrapped to two lines. Below
+          xl the header falls back to the wordmark, language toggle and book
+          button, which is the same treatment mobile already gets.
+        */}
+        <nav
+          aria-label={nav.sections}
+          className="hidden items-center gap-6 xl:flex 2xl:gap-8"
+        >
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-sm tracking-wide transition-opacity duration-200 hover:opacity-60"
+              className="text-sm tracking-wide whitespace-nowrap transition-opacity duration-200 hover:opacity-60"
             >
               {link.label}
             </a>

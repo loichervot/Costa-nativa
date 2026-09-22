@@ -359,7 +359,7 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
         </Section>
 
         {/* Guests */}
-        <Section tone="cream">
+        <Section id="reviews" tone="cream">
           <Reveal>
             <Eyebrow>{dict.reviews.eyebrow}</Eyebrow>
             <Title>{dict.reviews.title}</Title>
