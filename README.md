@@ -154,15 +154,22 @@ DNS usually settles within an hour. Netlify issues the TLS certificate itself.
 
 ---
 
-## Measured on the production build
+## Measured
+
+Lighthouse against the deployed site, not a local build:
 
 | | Performance | Accessibility | Best practices | SEO |
 |---|---|---|---|---|
-| Desktop | 99 | 100 | 100 | 100 |
-| Mobile | 91 | 100 | 100 | 100 |
+| Desktop | 97 | 100 | 100 | 100 |
+| Mobile | 89 | 100 | 100 | 100 |
 
-CLS is 0 on both. Mobile LCP is 3.4s under Lighthouse's simulated 1.6 Mbps
-connection, and the LCP element is the hero headline waiting on Fraunces.
-Both fonts and the hero image are already preloaded, so closing that last gap
-means dropping a typeface — a design decision, not a bug. On real connections
-it is far quicker.
+CLS is ~0 on both. Mobile LCP is 3.7s under Lighthouse's simulated 1.6 Mbps
+connection; the LCP element is the hero headline waiting on Fraunces, and both
+fonts and the hero image are already preloaded. Closing that last gap means
+dropping a typeface — a design decision, not a bug. On real connections it is
+far quicker.
+
+Images come through the Netlify Image CDN as WebP. That is Netlify's default
+negotiation and it is the right one here: its encoder produces a smaller WebP
+than AVIF for these photos, the reverse of what Next's own optimizer does
+locally.
