@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Costa Nativa — Architect-designed house with private pool, Brasilito, Guanacaste",
-    "description": "A calm two-bedroom house with a private pool, set in five thousand square metres of Guanacaste forest, eight hundred metres from Playa Brasilito. Sleeps five. Book on Airbnb.",
+    "description": "A calm two-bedroom house with a private pool, set in five thousand square metres of Guanacaste forest, three minutes from Playa Brasilito. Sleeps five. Book on Airbnb.",
     "ogAlt": "Costa Nativa at dusk, the lit pool reflecting the open living space"
   },
   "nav": {
@@ -18,7 +18,7 @@
   "hero": {
     "eyebrow": "Brasilito · Guanacaste, Costa Rica",
     "title": "A house that opens to the trees.",
-    "subtitle": "Two bedrooms, a private pool, and five thousand square metres of forest — eight hundred metres from Playa Brasilito.",
+    "subtitle": "Two bedrooms, a private pool, and five thousand square metres of forest — three minutes from Playa Brasilito.",
     "scroll": "Look inside"
   },
   "rating": {
@@ -70,12 +70,12 @@
   },
   "setting": {
     "eyebrow": "The setting",
-    "title": "Eight hundred metres to the water.",
+    "title": "Three minutes to the water.",
     "body": "Playa Brasilito is a three-minute drive — a small town square, a handful of good restaurants, boards and boat trips for hire. Playa Conchal, the one made of crushed shells, is around the headland. The house itself sits inside Catalina Cove, a gated community with round-the-clock security, on five thousand square metres of endemic Guanacaste and Brasilito trees full of birds and, most mornings, monkeys.",
     "distances": [
       {
         "place": "Playa Brasilito",
-        "detail": "800 m · 3 min drive"
+        "detail": "3 min drive"
       },
       {
         "place": "Playa Conchal",

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Costa Nativa — Casa de autor con piscina privada, Brasilito, Guanacaste",
-    "description": "Una casa tranquila de dos habitaciones con piscina privada, entre cinco mil metros cuadrados de bosque guanacasteco, a ochocientos metros de Playa Brasilito. Para cinco personas. Reserve en Airbnb.",
+    "description": "Una casa tranquila de dos habitaciones con piscina privada, entre cinco mil metros cuadrados de bosque guanacasteco, a tres minutos de Playa Brasilito. Para cinco personas. Reserve en Airbnb.",
     "ogAlt": "Costa Nativa al atardecer, la piscina iluminada frente al área social abierta"
   },
   "nav": {
@@ -18,7 +18,7 @@
   "hero": {
     "eyebrow": "Brasilito · Guanacaste, Costa Rica",
     "title": "Una casa que se abre a los árboles.",
-    "subtitle": "Dos habitaciones, piscina privada y cinco mil metros cuadrados de bosque, a ochocientos metros de Playa Brasilito.",
+    "subtitle": "Dos habitaciones, piscina privada y cinco mil metros cuadrados de bosque, a tres minutos de Playa Brasilito.",
     "scroll": "Conozca la casa"
   },
   "rating": {
@@ -70,12 +70,12 @@
   },
   "setting": {
     "eyebrow": "El entorno",
-    "title": "A ochocientos metros del mar.",
+    "title": "A tres minutos del mar.",
     "body": "Playa Brasilito queda a tres minutos en carro: una plaza pequeña, unos cuantos buenos restaurantes, tablas y paseos en bote de alquiler. Playa Conchal, la de conchas molidas, está al otro lado de la punta. La casa está dentro de Catalina Cove, un residencial privado con seguridad las veinticuatro horas, sobre cinco mil metros cuadrados de guanacastes y brasilitos llenos de pájaros y, casi todas las mañanas, de monos.",
     "distances": [
       {
         "place": "Playa Brasilito",
-        "detail": "800 m · 3 min en carro"
+        "detail": "3 min en carro"
       },
       {
         "place": "Playa Conchal",
