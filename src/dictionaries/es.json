@@ -71,11 +71,11 @@
   "setting": {
     "eyebrow": "El entorno",
     "title": "A ochocientos metros del mar.",
-    "body": "Playa Brasilito queda a diez minutos caminando: una plaza pequeña, unos cuantos buenos restaurantes, tablas y paseos en bote de alquiler. Playa Conchal, la de conchas molidas, está al otro lado de la punta. La casa está dentro de Catalina Cove, un residencial privado con seguridad las veinticuatro horas, sobre cinco mil metros cuadrados de guanacastes y brasilitos llenos de pájaros y, casi todas las mañanas, de monos.",
+    "body": "Playa Brasilito queda a tres minutos en carro: una plaza pequeña, unos cuantos buenos restaurantes, tablas y paseos en bote de alquiler. Playa Conchal, la de conchas molidas, está al otro lado de la punta. La casa está dentro de Catalina Cove, un residencial privado con seguridad las veinticuatro horas, sobre cinco mil metros cuadrados de guanacastes y brasilitos llenos de pájaros y, casi todas las mañanas, de monos.",
     "distances": [
       {
         "place": "Playa Brasilito",
-        "detail": "800 m · 10 min a pie"
+        "detail": "800 m · 3 min en carro"
       },
       {
         "place": "Playa Conchal",
@@ -185,7 +185,6 @@
   },
   "footer": {
     "tagline": "Brasilito · Guanacaste · Costa Rica",
-    "architecture": "Arquitectura de Murillo + Sanabria, 2021",
     "rights": "Todos los derechos reservados.",
     "logoAlt": "Costa Nativa"
   }

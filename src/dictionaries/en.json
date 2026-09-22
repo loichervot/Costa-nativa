@@ -71,11 +71,11 @@
   "setting": {
     "eyebrow": "The setting",
     "title": "Eight hundred metres to the water.",
-    "body": "Playa Brasilito is a ten-minute walk — a small town square, a handful of good restaurants, boards and boat trips for hire. Playa Conchal, the one made of crushed shells, is around the headland. The house itself sits inside Catalina Cove, a gated community with round-the-clock security, on five thousand square metres of endemic Guanacaste and Brasilito trees full of birds and, most mornings, monkeys.",
+    "body": "Playa Brasilito is a three-minute drive — a small town square, a handful of good restaurants, boards and boat trips for hire. Playa Conchal, the one made of crushed shells, is around the headland. The house itself sits inside Catalina Cove, a gated community with round-the-clock security, on five thousand square metres of endemic Guanacaste and Brasilito trees full of birds and, most mornings, monkeys.",
     "distances": [
       {
         "place": "Playa Brasilito",
-        "detail": "800 m · 10 min walk"
+        "detail": "800 m · 3 min drive"
       },
       {
         "place": "Playa Conchal",
@@ -185,7 +185,6 @@
   },
   "footer": {
     "tagline": "Brasilito · Guanacaste · Costa Rica",
-    "architecture": "Architecture by Murillo + Sanabria, 2021",
     "rights": "All rights reserved.",
     "logoAlt": "Costa Nativa"
   }

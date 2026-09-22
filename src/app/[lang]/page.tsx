@@ -399,15 +399,22 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
           )}
 
           <Reveal delay={200}>
-            <p className="mt-14 text-base text-ink-soft">{dict.reviews.hostNote}</p>
-            <a
-              href={AIRBNB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block border-b border-ochre pb-0.5 text-sm tracking-wide text-ink transition-colors duration-200 hover:border-ink"
-            >
-              {dict.reviews.readAll}
-            </a>
+            <p className="mx-auto mt-14 max-w-[40ch] text-center text-xl leading-[1.6] text-ink-soft italic sm:text-2xl">
+              {dict.reviews.hostNote}
+            </p>
+            {/* Centred with the host note above it — the two read as one
+                closing beat, and a left-aligned link under centred type
+                looks like a mistake. */}
+            <div className="mt-6 text-center">
+              <a
+                href={AIRBNB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block border-b border-ochre pb-0.5 text-sm tracking-wide text-ink transition-colors duration-200 hover:border-ink"
+              >
+                {dict.reviews.readAll}
+              </a>
+            </div>
           </Reveal>
         </Section>
 
@@ -444,7 +451,6 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
           <div>
             <p className="font-display text-2xl">Costa Nativa</p>
             <p className="mt-2 text-sm text-cream/60">{dict.footer.tagline}</p>
-            <p className="mt-6 text-xs text-cream/60">{dict.footer.architecture}</p>
           </div>
           <div className="text-sm sm:text-right">
             <a
