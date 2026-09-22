@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "title": "Costa Nativa — Casa de autor con piscina privada, Brasilito, Guanacaste",
+    "description": "Una casa tranquila de dos habitaciones con piscina privada, entre cinco mil metros cuadrados de bosque guanacasteco, a ochocientos metros de Playa Brasilito. Para cinco personas. Reserve en Airbnb.",
+    "ogAlt": "Costa Nativa al atardecer, la piscina iluminada frente al área social abierta"
+  },
+  "nav": {
+    "house": "La casa",
+    "pool": "Piscina y terraza",
+    "rooms": "Habitaciones",
+    "setting": "El entorno",
+    "details": "Detalles",
+    "book": "Reservar en Airbnb",
+    "sections": "Secciones",
+    "skipToContent": "Saltar al contenido",
+    "switchTo": "View in English"
+  },
+  "hero": {
+    "eyebrow": "Brasilito · Guanacaste, Costa Rica",
+    "title": "Una casa que se abre a los árboles.",
+    "subtitle": "Dos habitaciones, piscina privada y cinco mil metros cuadrados de bosque, a ochocientos metros de Playa Brasilito.",
+    "scroll": "Conozca la casa"
+  },
+  "rating": {
+    "score": "4,96",
+    "reviews": "83 reseñas",
+    "superhost": "Superanfitriona"
+  },
+  "opening": {
+    "body": "Hay un momento, casi siempre la segunda mañana, en que uno deja de buscar el teléfono. La casa está en silencio, salvo por los pájaros. Las puertas ya están abiertas —aquí suelen quedarse así— y la piscina sostiene la forma de los árboles de arriba.\n\nPara eso existe Costa Nativa."
+  },
+  "house": {
+    "eyebrow": "La casa",
+    "title": "Abierta, y después más abierta.",
+    "body": "El área social no tiene un borde definido. Los muros corredizos se repliegan hasta que la cocina, el sofá y la terraza son una sola habitación, y la brisa atraviesa todo. Los cielos son altos, la luz entra por tres lados y nada queda cerrado a menos que usted lo decida.",
+    "alt": {
+      "kitchenLivingWide": "La cocina y la sala integradas, con isla de cuarzo blanco, muebles de madera y una obra enmarcada en la pared del fondo",
+      "livingToEntry": "La sala hacia la cocina y la puerta principal de madera maciza, con obras a ambos lados del televisor",
+      "livingPoolView": "La sala con los muros corredizos abiertos, hacia la terraza y la piscina"
+    }
+  },
+  "pool": {
+    "eyebrow": "Piscina y terraza",
+    "title": "El centro del día.",
+    "body": "La piscina está a la sombra de los árboles, a unos pasos de la mesa y de la parrilla. Las mañanas son para el café afuera. Las tardes, para moverse lo menos posible. Al caer la noche el agua se ilumina y la terraza se convierte, sin hacer ruido, en el mejor cuarto de la casa.",
+    "alt": {
+      "poolDay": "La piscina de mosaico turquesa de día, con la terraza techada, la mesa de comedor y la cocina al fondo",
+      "terraceNight": "La terraza de noche, la piscina iluminada de azul, con sala exterior, mesa larga de madera y obras enmarcadas en la pared",
+      "terraceWide": "Todo el ancho de la terraza techada, con parrilla de gas, mesa para seis y un sofá exterior azul"
+    }
+  },
+  "rooms": {
+    "eyebrow": "Habitaciones",
+    "title": "Pensada para dormir bien.",
+    "body": "Una cama king en la habitación principal; una queen y una individual en la segunda. Las dos tienen cortinas blackout, aislamiento acústico y aire acondicionado, y las dos se tienden con ropa de cama de algodón de primera. Dos baños completos. Cinco personas, con holgura.",
+    "bedroomOne": "Habitación principal — cama king, baño propio",
+    "bedroomTwo": "Segunda habitación — cama queen y cama individual",
+    "bathrooms": "Dos baños completos",
+    "alt": {
+      "bedroomKing": "La habitación principal con cama king, cabecera tapizada y tres obras enmarcadas encima, abierta a un baño con espejo redondo retroiluminado",
+      "bedroomTwo": "La segunda habitación con dos camas vestidas en verde azulado, una hilera de obras pequeñas en la pared y el baño al fondo",
+      "bathroom": "Un baño con muro de concreto pulido, toallas blancas y una obra pequeña enmarcada"
+    }
+  },
+  "design": {
+    "eyebrow": "Una nota sobre la casa",
+    "title": "Diseñada, no decorada.",
+    "body": "Costa Nativa fue proyectada por los arquitectos costarricenses Murillo + Sanabria en 2021, alrededor de una colección privada de obra del artista Jacques Hervot. Las paredes blancas y el detalle sobrio son deliberados: están ahí para que hablen los cuadros. Los va a encontrar en todas las habitaciones, incluso en las que no esperaría.",
+    "alt": "La sala de la terraza techada, dos obras enmarcadas sobre la pared blanca encima de un sofá azul, con el jardín al fondo"
+  },
+  "setting": {
+    "eyebrow": "El entorno",
+    "title": "A ochocientos metros del mar.",
+    "body": "Playa Brasilito queda a diez minutos caminando: una plaza pequeña, unos cuantos buenos restaurantes, tablas y paseos en bote de alquiler. Playa Conchal, la de conchas molidas, está al otro lado de la punta. La casa está dentro de Catalina Cove, un residencial privado con seguridad las veinticuatro horas, sobre cinco mil metros cuadrados de guanacastes y brasilitos llenos de pájaros y, casi todas las mañanas, de monos.",
+    "distances": [
+      { "place": "Playa Brasilito", "detail": "800 m · 10 min a pie" },
+      { "place": "Playa Conchal", "detail": "10 min en carro" },
+      { "place": "Playa Flamingo", "detail": "15 min en carro" },
+      { "place": "Las Catalinas", "detail": "20 min en carro" },
+      { "place": "Tamarindo", "detail": "35 min en carro" },
+      { "place": "Aeropuerto de Liberia (LIR)", "detail": "1 h en carro" }
+    ],
+    "distancesNote": "Los tiempos son aproximados y dependen de la temporada y del estado de la vía.",
+    "alt": "Vista aérea de la costa guanacasteca, arena blanca curvándose hacia agua turquesa, con puntas boscosas e islas frente a la costa"
+  },
+  "details": {
+    "eyebrow": "Detalles",
+    "title": "Qué incluye.",
+    "facts": [
+      { "label": "Huéspedes", "value": "5" },
+      { "label": "Habitaciones", "value": "2" },
+      { "label": "Baños", "value": "2" },
+      { "label": "Camas", "value": "3" }
+    ],
+    "amenitiesTitle": "Incluido",
+    "amenities": [
+      "Piscina privada",
+      "Cocina totalmente equipada",
+      "Aire acondicionado",
+      "WiFi de alta velocidad",
+      "Espacio de trabajo",
+      "Parqueo gratuito en el sitio",
+      "Parrilla de gas",
+      "Comedor exterior",
+      "Roku Streambar — Netflix, Disney+, HBO Max, Prime",
+      "Cortinas blackout",
+      "Aislamiento acústico",
+      "Ropa de cama de algodón de primera",
+      "Seguridad privada 24 horas",
+      "5.000 m² de terreno privado"
+    ],
+    "notesTitle": "Bueno saber",
+    "notes": [
+      "La lavandería está disponible en estadías de más de una semana.",
+      "El residencial pide no hacer fiestas ni poner música alta después de las 10 p. m.",
+      "Las tarifas, la disponibilidad y las reglas de la casa están en el anuncio de Airbnb."
+    ],
+    "alt": "El frente de la casa desde la entrada de lastre, volúmenes blancos bajos bajo árboles altos y jardinería en el acceso"
+  },
+  "reviews": {
+    "eyebrow": "Huéspedes",
+    "title": "Lo que dice la gente.",
+    "stats": [
+      { "label": "General", "value": "4,96" },
+      { "label": "Limpieza", "value": "5,0" },
+      { "label": "Exactitud", "value": "5,0" },
+      { "label": "Ubicación", "value": "4,9" }
+    ],
+    "hostNote": "Paula es Superanfitriona desde hace cinco años y responde en menos de una hora.",
+    "readAll": "Lea todas las reseñas en Airbnb"
+  },
+  "cta": {
+    "eyebrow": "Costa Nativa",
+    "title": "Venga a quedarse.",
+    "body": "Las fechas, las tarifas y la disponibilidad están en Airbnb, donde la reserva y el pago están protegidos de principio a fin.",
+    "button": "Reservar en Airbnb",
+    "alt": "La casa al atardecer vista de frente, con luz cálida saliendo del área social abierta sobre la piscina iluminada"
+  },
+  "footer": {
+    "tagline": "Brasilito · Guanacaste · Costa Rica",
+    "architecture": "Arquitectura de Murillo + Sanabria, 2021",
+    "rights": "Todos los derechos reservados.",
+    "logoAlt": "Costa Nativa"
+  }
+}
