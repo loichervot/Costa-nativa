@@ -6,6 +6,7 @@
  *
  * Usage: node scripts/verify.mjs   (with the server running on :3000)
  */
+import { readFile } from "node:fs/promises";
 import { chromium } from "playwright-core";
 
 const AIRBNB = "https://www.airbnb.com/h/costanativa";
@@ -22,6 +23,25 @@ for (const locale of ["en", "es"]) {
   console.log(`\n── /${locale} ──`);
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   await page.goto(`http://localhost:3000/${locale}`, { waitUntil: "networkidle" });
+
+  // Control labels are localised, so read them from the same dictionary the
+  // page was built from rather than hardcoding English.
+  const { reviews: copy } = JSON.parse(
+    await readFile(new URL(`../src/dictionaries/${locale}.json`, import.meta.url), "utf8"),
+  );
+  const dictPrev = copy.prev;
+  const dictNext = copy.next;
+
+  // Keyboard: on a freshly loaded page the skip link is the first stop and
+  // becomes visible. This runs before anything else clicks, because any
+  // interaction moves focus and the next Tab would continue from there.
+  await page.keyboard.press("Tab");
+  const firstFocus = await page.evaluate(() => {
+    const el = document.activeElement;
+    const r = el.getBoundingClientRect();
+    return { text: el.textContent.trim(), visible: r.width > 0 && r.height > 0 };
+  });
+  check("skip link is first tab stop and visible", firstFocus.visible, firstFocus.text);
 
   // Every outbound booking link goes to the listing, in a new tab, safely.
   const outbound = await page.$$eval('a[href^="http"]', (as) =>
@@ -68,14 +88,42 @@ for (const locale of ["en", "es"]) {
     body.match(/lorem ipsum|placeholder/i)?.[0] ?? body.match(/TODO|FIXME|XXX/)?.[0];
   check("no lorem/placeholder text", !placeholderish, placeholderish ?? "none");
 
-  // Keyboard: the skip link is the first stop and becomes visible.
-  await page.keyboard.press("Tab");
-  const firstFocus = await page.evaluate(() => {
-    const el = document.activeElement;
-    const r = el.getBoundingClientRect();
-    return { text: el.textContent.trim(), visible: r.width > 0 && r.height > 0 };
-  });
-  check("skip link focusable and visible", firstFocus.visible, firstFocus.text);
+  // Review carousel: the controls must actually move it, and the dots must
+  // agree with where it ended up.
+  const carousel = await page.$('[aria-roledescription="carousel"]');
+  if (carousel) {
+    const slides = await page.$$('[aria-roledescription="slide"]');
+    const scroller = await page.$('[aria-roledescription="carousel"] ul');
+    const left = () => scroller.evaluate((el) => el.scrollLeft);
+    const activeDot = () =>
+      page.$$eval('[aria-roledescription="carousel"] ol button', (bs) =>
+        bs.findIndex((b) => b.getAttribute("aria-current") === "true"),
+      );
+
+    check("carousel renders every review", slides.length === 4, `${slides.length} slides`);
+    check("starts on first slide", (await left()) === 0 && (await activeDot()) === 0);
+
+    const prev = await page.$(`[aria-roledescription="carousel"] button[aria-label="${dictPrev}"]`);
+    const next = await page.$(`[aria-roledescription="carousel"] button[aria-label="${dictNext}"]`);
+    check("previous is disabled at the start", await prev.isDisabled());
+
+    await next.click();
+    await page.waitForTimeout(700);
+    check("next advances the carousel", (await left()) > 0, `scrollLeft ${await left()}`);
+    check("dot follows the slide", (await activeDot()) === 1, `dot ${await activeDot()}`);
+
+    // Jump to the last slide via its dot and confirm the end state.
+    await page.$$eval('[aria-roledescription="carousel"] ol button', (bs) => bs.at(-1).click());
+    await page.waitForTimeout(700);
+    check("dots jump to the chosen slide", (await activeDot()) === 3, `dot ${await activeDot()}`);
+    check("next is disabled at the end", await next.isDisabled());
+
+    // Back to the start so the screenshot pass is deterministic.
+    await page.$$eval('[aria-roledescription="carousel"] ol button', (bs) => bs[0].click());
+    await page.waitForTimeout(600);
+  } else {
+    check("review carousel present", false, "not found");
+  }
 
   await page.close();
 }

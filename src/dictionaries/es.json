@@ -73,12 +73,30 @@
     "title": "A ochocientos metros del mar.",
     "body": "Playa Brasilito queda a diez minutos caminando: una plaza pequeña, unos cuantos buenos restaurantes, tablas y paseos en bote de alquiler. Playa Conchal, la de conchas molidas, está al otro lado de la punta. La casa está dentro de Catalina Cove, un residencial privado con seguridad las veinticuatro horas, sobre cinco mil metros cuadrados de guanacastes y brasilitos llenos de pájaros y, casi todas las mañanas, de monos.",
     "distances": [
-      { "place": "Playa Brasilito", "detail": "800 m · 10 min a pie" },
-      { "place": "Playa Conchal", "detail": "10 min en carro" },
-      { "place": "Playa Flamingo", "detail": "15 min en carro" },
-      { "place": "Las Catalinas", "detail": "20 min en carro" },
-      { "place": "Tamarindo", "detail": "35 min en carro" },
-      { "place": "Aeropuerto de Liberia (LIR)", "detail": "1 h en carro" }
+      {
+        "place": "Playa Brasilito",
+        "detail": "800 m · 10 min a pie"
+      },
+      {
+        "place": "Playa Conchal",
+        "detail": "10 min en carro"
+      },
+      {
+        "place": "Playa Flamingo",
+        "detail": "15 min en carro"
+      },
+      {
+        "place": "Las Catalinas",
+        "detail": "20 min en carro"
+      },
+      {
+        "place": "Tamarindo",
+        "detail": "35 min en carro"
+      },
+      {
+        "place": "Aeropuerto de Liberia (LIR)",
+        "detail": "1 h en carro"
+      }
     ],
     "distancesNote": "Los tiempos son aproximados y dependen de la temporada y del estado de la vía.",
     "alt": "Vista aérea de la costa guanacasteca, arena blanca curvándose hacia agua turquesa, con puntas boscosas e islas frente a la costa"
@@ -87,10 +105,22 @@
     "eyebrow": "Detalles",
     "title": "Qué incluye.",
     "facts": [
-      { "label": "Huéspedes", "value": "5" },
-      { "label": "Habitaciones", "value": "2" },
-      { "label": "Baños", "value": "2" },
-      { "label": "Camas", "value": "3" }
+      {
+        "label": "Huéspedes",
+        "value": "5"
+      },
+      {
+        "label": "Habitaciones",
+        "value": "2"
+      },
+      {
+        "label": "Baños",
+        "value": "2"
+      },
+      {
+        "label": "Camas",
+        "value": "3"
+      }
     ],
     "amenitiesTitle": "Incluido",
     "amenities": [
@@ -121,11 +151,28 @@
     "eyebrow": "Huéspedes",
     "title": "Lo que dice la gente.",
     "stats": [
-      { "label": "General", "value": "4,96" },
-      { "label": "Limpieza", "value": "5,0" },
-      { "label": "Exactitud", "value": "5,0" },
-      { "label": "Ubicación", "value": "4,9" }
+      {
+        "label": "General",
+        "value": "4,96"
+      },
+      {
+        "label": "Limpieza",
+        "value": "5,0"
+      },
+      {
+        "label": "Exactitud",
+        "value": "5,0"
+      },
+      {
+        "label": "Ubicación",
+        "value": "4,9"
+      }
     ],
+    "carousel": "Reseñas de huéspedes",
+    "prev": "Reseña anterior",
+    "next": "Reseña siguiente",
+    "goTo": "Ir a la reseña",
+    "originalLanguage": "Las reseñas aparecen en el idioma en que cada huésped las escribió.",
     "hostNote": "Paula es Superanfitriona desde hace cinco años y responde en menos de una hora.",
     "readAll": "Lea todas las reseñas en Airbnb"
   },

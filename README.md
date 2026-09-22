@@ -24,37 +24,14 @@ npm run dev          # http://localhost:3000 → redirects to /en or /es
 | `npm run build` | Production build (must pass clean before deploying) |
 | `npm start` | Serve the production build locally |
 | `npm run prep-images` | Re-derive web photos, OG card and favicons from `originals/` |
-| `npm run verify` | End-to-end checks — CTAs, alt text, reduced motion, no fabricated content |
+| `npm run verify` | End-to-end checks — CTAs, alt text, carousel, reduced motion, no fabricated content |
 | `npm run shots` | Screenshot every viewport-height of the page for review |
 
 `verify` and `shots` need a server already running on :3000.
 
 ---
 
-## Two things to finish
-
-### 1. Real guest reviews
-
-`src/lib/reviews.ts` exports an **intentionally empty array**. Airbnb renders
-review text in JavaScript, so it could not be read when this site was built.
-
-Open the listing, pick three to five reviews, and paste them in verbatim:
-
-```ts
-export const reviews: Review[] = [
-  { quote: "…", name: "Sarah", date: "March 2025" },
-];
-```
-
-The reviews section and the `aggregateRating` in the structured data both
-switch on automatically once the array has entries. They are deliberately tied
-together: Google treats rating markup with no visible reviews on the page as a
-structured-data violation.
-
-**Do not invent entries.** Fabricated testimonials are dishonest and, as
-marketing claims, a legal exposure.
-
-### 2. Confirm the rating
+## One thing to keep an eye on
 
 `src/lib/site.ts` carries `4.96 ★ / 83 reviews`. Airbnb publishes two different
 numbers — *129 reviews / 4.95* is Paula's **host** figure across all her
@@ -64,7 +41,26 @@ figure. Both drift as reviews come in; re-check before any significant push.
 The same numbers appear as display strings in `src/dictionaries/{en,es}.json`
 under `rating` and `reviews.stats` — update both places.
 
----
+### Adding more guest reviews
+
+`src/lib/reviews.ts` holds four real quotes, shown in a carousel. To add more,
+copy them from the listing **verbatim** — never reword, never invent. Airbnb
+labels some reviewers with a date and others with how long they have been on
+the platform; carry across whichever it shows, and leave the other field off
+rather than guessing:
+
+```ts
+{ quote: "…", name: "Shay", date: "July 2026" },
+{ quote: "…", name: "Michelle", tenure: "9 years on Airbnb" },
+```
+
+Quotes are **not translated**. They appear in English on the Spanish page too,
+under a line explaining why — rewriting someone's testimonial into another
+language while still signing their name to it misrepresents what they said.
+
+The carousel and the `aggregateRating` in the structured data are both gated on
+this array being non-empty, because Google treats rating markup with no visible
+reviews on the page as a structured-data violation.
 
 ## How it is put together
 
@@ -78,7 +74,7 @@ src/
   photos/            Committed web-ready photos; statically imported
   dictionaries/      en.json, es.json — ALL copy lives here
   lib/               site facts, reviews, photo map, dictionary loader
-  components/        Hero, SiteHeader, Reveal, primitives
+  components/        Hero, SiteHeader, ReviewCarousel, Reveal, primitives
   app/[lang]/        The page. One locale segment, two static routes.
   proxy.ts           / → /en | /es from Accept-Language
 ```

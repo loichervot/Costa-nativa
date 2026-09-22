@@ -73,12 +73,30 @@
     "title": "Eight hundred metres to the water.",
     "body": "Playa Brasilito is a ten-minute walk — a small town square, a handful of good restaurants, boards and boat trips for hire. Playa Conchal, the one made of crushed shells, is around the headland. The house itself sits inside Catalina Cove, a gated community with round-the-clock security, on five thousand square metres of endemic Guanacaste and Brasilito trees full of birds and, most mornings, monkeys.",
     "distances": [
-      { "place": "Playa Brasilito", "detail": "800 m · 10 min walk" },
-      { "place": "Playa Conchal", "detail": "10 min drive" },
-      { "place": "Playa Flamingo", "detail": "15 min drive" },
-      { "place": "Las Catalinas", "detail": "20 min drive" },
-      { "place": "Tamarindo", "detail": "35 min drive" },
-      { "place": "Liberia airport (LIR)", "detail": "1 hr drive" }
+      {
+        "place": "Playa Brasilito",
+        "detail": "800 m · 10 min walk"
+      },
+      {
+        "place": "Playa Conchal",
+        "detail": "10 min drive"
+      },
+      {
+        "place": "Playa Flamingo",
+        "detail": "15 min drive"
+      },
+      {
+        "place": "Las Catalinas",
+        "detail": "20 min drive"
+      },
+      {
+        "place": "Tamarindo",
+        "detail": "35 min drive"
+      },
+      {
+        "place": "Liberia airport (LIR)",
+        "detail": "1 hr drive"
+      }
     ],
     "distancesNote": "Driving times are approximate and depend on the season and the road.",
     "alt": "Aerial view of the Guanacaste coastline, white sand curving into turquoise water with forested headlands and offshore islands"
@@ -87,10 +105,22 @@
     "eyebrow": "Details",
     "title": "What you get.",
     "facts": [
-      { "label": "Guests", "value": "5" },
-      { "label": "Bedrooms", "value": "2" },
-      { "label": "Bathrooms", "value": "2" },
-      { "label": "Beds", "value": "3" }
+      {
+        "label": "Guests",
+        "value": "5"
+      },
+      {
+        "label": "Bedrooms",
+        "value": "2"
+      },
+      {
+        "label": "Bathrooms",
+        "value": "2"
+      },
+      {
+        "label": "Beds",
+        "value": "3"
+      }
     ],
     "amenitiesTitle": "Included",
     "amenities": [
@@ -121,11 +151,28 @@
     "eyebrow": "Guests",
     "title": "What people say.",
     "stats": [
-      { "label": "Overall", "value": "4.96" },
-      { "label": "Cleanliness", "value": "5.0" },
-      { "label": "Accuracy", "value": "5.0" },
-      { "label": "Location", "value": "4.9" }
+      {
+        "label": "Overall",
+        "value": "4.96"
+      },
+      {
+        "label": "Cleanliness",
+        "value": "5.0"
+      },
+      {
+        "label": "Accuracy",
+        "value": "5.0"
+      },
+      {
+        "label": "Location",
+        "value": "4.9"
+      }
     ],
+    "carousel": "Guest reviews",
+    "prev": "Previous review",
+    "next": "Next review",
+    "goTo": "Go to review",
+    "originalLanguage": "Reviews appear in the language each guest wrote them in.",
     "hostNote": "Paula has been a Superhost for five years and answers within the hour.",
     "readAll": "Read all reviews on Airbnb"
   },

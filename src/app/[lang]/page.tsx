@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { Hero } from "@/components/Hero";
+import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { SiteHeader } from "@/components/SiteHeader";
 import {
   Body,
@@ -84,6 +85,15 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
         reviewCount: rating.reviewCount,
         bestRating: 5,
       },
+      // Every quote carried here is also visible in the carousel above, which
+      // is what keeps this markup legitimate rather than decorative.
+      review: reviews.map((r) => ({
+        "@type": "Review",
+        reviewBody: r.quote,
+        author: { "@type": "Person", name: r.name },
+        reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
+        ...(r.date && { datePublished: r.date }),
+      })),
     }),
   };
 
@@ -373,18 +383,19 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
 
           {/* Renders nothing until real quotes are added — see lib/reviews.ts. */}
           {reviews.length > 0 && (
-            <div className="mt-16 grid gap-8 md:grid-cols-3">
-              {reviews.slice(0, 3).map((review, i) => (
-                <Reveal key={review.name + review.date} delay={i * 120}>
-                  <blockquote className="border-t border-ink/15 pt-6">
-                    <p className="text-lg leading-[1.7] text-ink-soft">“{review.quote}”</p>
-                    <footer className="mt-4 text-sm text-ink-soft/80">
-                      {review.name} · {review.date}
-                    </footer>
-                  </blockquote>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={160}>
+              <ReviewCarousel reviews={reviews} labels={dict.reviews} />
+              {/* Every quote is currently English. Saying so on the Spanish
+                  page is the honest alternative to translating testimonials:
+                  rewording someone's words and still signing their name to
+                  them misrepresents what they said. Shown only where the
+                  quotes and the page disagree. */}
+              {lang !== "en" && (
+                <p className="mt-8 text-center text-xs text-ink-soft/70">
+                  {dict.reviews.originalLanguage}
+                </p>
+              )}
+            </Reveal>
           )}
 
           <Reveal delay={200}>
