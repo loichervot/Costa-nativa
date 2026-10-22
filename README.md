@@ -7,7 +7,7 @@ The site has one job: make a visitor want the house, then send them to the
 Airbnb listing. It holds no availability, pricing or booking logic — Airbnb is
 the single source of truth for all three.
 
-Next.js 16 · React 19 · Tailwind v4 · English + Spanish · deploys to Netlify.
+Next.js 16 · React 19 · scroll-craft worldflight · English + Spanish · deploys to Netlify.
 
 ---
 
@@ -24,7 +24,7 @@ npm run dev          # http://localhost:3000 → redirects to /en or /es
 | `npm run build` | Production build (must pass clean before deploying) |
 | `npm start` | Serve the production build locally |
 | `npm run prep-images` | Re-derive web photos, OG card and favicons from `originals/` |
-| `npm run verify` | End-to-end checks — CTAs, alt text, carousel, reduced motion, no fabricated content |
+| `npm run verify` | End-to-end checks: CTAs, alt text, keyboard focus, sun rail, carousel, reduced motion, no fabricated content |
 | `npm run shots` | Screenshot every viewport-height of the page for review |
 
 `verify` and `shots` need a server already running on :3000.
@@ -64,37 +64,58 @@ reviews on the page as a structured-data violation.
 
 ## How it is put together
 
+The page is one continuous walk through the house over one day, built with
+the scroll-craft skill's **worldflight** mode: a single fixed stage holding
+every leg of film, a fixed copy layer whose blocks open and close against the
+scroll position, and an empty spacer that is the only thing in document flow.
+Scroll is the playhead. The brief, the feeling curve and what was generated
+are in `scrollcraft/builds/costa-nativa/BRIEF.md`.
+
 ```
-originals/           Full-res masters (gitignored — keep your own backup)
-scripts/
-  prep-images.mjs    sharp: originals → src/photos/, og.jpg, favicons
-  verify.mjs         End-to-end correctness checks
-  shots.mjs          Screenshot helper
+originals/                 Full-res masters (gitignored — keep your own backup)
+public/
+  scrollcraft.js           The engine, copied unedited from the skill
+  walk/                    Clips (desktop + -m mobile), posters, hero planes
+scripts/                   prep-images, verify, shots
+scrollcraft/
+  FINGERPRINTS.md          Registry of scroll-craft builds (the skill's gate)
+  builds/costa-nativa/     BRIEF.md and the build tools; out/ lab/ assets/
+                           are working files and gitignored
 src/
-  photos/            Committed web-ready photos; statically imported
-  dictionaries/      en.json, es.json — ALL copy lives here
-  lib/               site facts, reviews, photo map, dictionary loader
-  components/        Hero, SiteHeader, ReviewCarousel, Reveal, primitives
-  app/[lang]/        The page. One locale segment, two static routes.
-  proxy.ts           / → /en | /es from Accept-Language
+  app/[lang]/              The page. One locale segment, two static routes.
+  app/scrollcraft.css      The engine's stylesheet, unedited
+  app/globals.css          Theme tokens and the page's own styles
+  components/Walk.tsx      The whole walk, server-rendered
+  components/WalkRuntime   Loads and mounts the engine; hero plane motion
+  components/SunRail       The map: the sun's path across the day
+  dictionaries/            en.json, es.json — ALL copy lives here
+  lib/walk.ts              Legs, weights and copy windows
+  lib/                     site facts, reviews, dictionary loader
+  proxy.ts                 / → /en | /es from Accept-Language
 ```
 
-**All copy lives in the dictionaries.** No text is hardcoded in components, so
-changing wording never means touching layout — and English and Spanish cannot
-drift apart, because `Dictionary` is typed from `en.json` and the build fails
-if `es.json` does not match it key for key.
+**All copy lives in the dictionaries.** `Dictionary` is typed from `en.json`
+and the build fails if `es.json` does not match it key for key.
 
-**Photos** are statically imported, which gets `next/image` intrinsic sizes and
-an automatic blur placeholder. `prep-images` caps originals at 2560px and
-strips EXIF — 27.3MB → 4.0MB.
+**The footage is the house, unaltered.** Every room is a real photo or a clip
+that starts and ends on one; transitions between rooms are dissolves, never
+generated hallways. Only the canopy B-roll and the hero's sky plate are
+generated from scratch. Clips are encoded for scrubbing (dense keyframes) and
+each one is fetched only as the walk approaches it.
 
-**Motion** is one IntersectionObserver plus a CSS transition (`Reveal` +
-`[data-reveal]` in `globals.css`), not an animation library. Everything is
-gated behind `prefers-reduced-motion`.
+**Pacing lives in `src/lib/walk.ts`.** Each leg owns a number of
+viewport-heights; clip legs share one pace so the walk never surges, and the
+copy windows are computed from the weights. Change a weight and every window
+after it moves with it.
 
-**Colour** comes from the existing logo, sampled in the `@theme` block in
-`globals.css`. The logo's hot magenta and orange are deliberately unused — the
-photographs supply the saturation, the interface stays warm-neutral.
+**Motion** is the engine plus a little page code: the hero's three planes,
+the sun rail, and scrims that follow their copy. Under
+`prefers-reduced-motion` no clip is fetched; the posters cross-dissolve
+through the same positions and every word still appears.
+
+**Colour** comes from the logo, one of Jacques Hervot's pieces: its warm
+off-black, its bone, and its hot coral as the single accent. The sun, the rail
+and every scrim regrade from morning to night as you scroll.
 
 ---
 
@@ -183,20 +204,7 @@ Netlify's load balancer; take it from Netlify's own screen if it ever differs.
 
 ## Measured
 
-Lighthouse against the deployed site, not a local build:
-
-| | Performance | Accessibility | Best practices | SEO |
-|---|---|---|---|---|
-| Desktop | 97 | 100 | 100 | 100 |
-| Mobile | 89 | 100 | 100 | 100 |
-
-CLS is ~0 on both. Mobile LCP is 3.7s under Lighthouse's simulated 1.6 Mbps
-connection; the LCP element is the hero headline waiting on Fraunces, and both
-fonts and the hero image are already preloaded. Closing that last gap means
-dropping a typeface — a design decision, not a bug. On real connections it is
-far quicker.
-
-Images come through the Netlify Image CDN as WebP. That is Netlify's default
-negotiation and it is the right one here: its encoder produces a smaller WebP
-than AVIF for these photos, the reverse of what Next's own optimizer does
-locally.
+The Lighthouse figures from the previous build no longer apply. Re-measure
+against the deployed site; expect a heavier page (the clips are 3–8MB each,
+loaded one leg ahead) and the LCP element to be the hero headline over the
+hero planes.

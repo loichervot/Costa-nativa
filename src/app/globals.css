@@ -1,93 +1,1007 @@
-@import "tailwindcss";
-
 /*
- * Palette sampled from the existing Costa Nativa logo, which is built from one
- * of Jacques Hervot's pieces. The logo also carries a hot magenta and orange —
- * deliberately left out. The brief is calm, and the photographs already supply
- * all the saturation this page needs.
+ * Costa Nativa · the walk.
+ *
+ * scrollcraft.css is the mechanism and is never edited; this file themes it
+ * through its tokens and styles the page's own markup. Nothing here restyles
+ * .sc-* or [data-sc-*] beyond what the engine documents as the page's job.
+ *
+ * Palette from the logo, which is one of Jacques Hervot's pieces: its warm
+ * off-black ground, its bone, and its one hot coral as the accent. The
+ * footage supplies every other colour.
  */
-@theme {
-  --color-ink: #1c1613; /* warm near-black — text, footer */
-  --color-ink-soft: #4a3f38; /* body copy on cream */
-  --color-cream: #f5eee4; /* page base */
-  --color-sand: #e8dcc8; /* section alternation */
-  --color-ochre: #b8912f; /* primary accent — CTA, rules */
-  --color-ochre-deep: #8f6f21; /* ochre that passes AA on cream */
-  --color-terracotta: #a85443;
-  --color-sage: #7c9682;
+:root {
+  --sc-canvas: #14110e;
+  --sc-surface: #1f1a16;
+  --sc-ink: #f6ebdd;
+  --sc-ink-soft: #ddcdb9;
+  --sc-accent: #ee6a3e;
+  --sc-accent-ink: #14110e;
+  --sc-font-display: var(--font-fraunces), Georgia, serif;
+  --sc-font-text: var(--font-geist), system-ui, sans-serif;
 
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  /* The hero is the one light ground: morning haze, dark ink. */
+  --ink-dark: #17120e;
+  --ink-dark-soft: #3d3229;
 
-  /* One slow, unfussy curve for everything that moves. */
-  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Set by the page as the day moves; these are the morning values. */
+  --sun: #f7c97e;
+  --scrim: #1b150f;
+  --hero-p: 0;
+
+  /* viewport-fit=cover lets the film run under the notch and home bar; the
+     chrome and every copy offset step back by the safe-area insets. */
+  --sc-gutter: max(clamp(1.25rem, 5vw, 5.5rem), env(safe-area-inset-left), env(safe-area-inset-right));
+  --bar-h: calc(4.5rem + env(safe-area-inset-top));
+  --rail-h: calc(6rem + env(safe-area-inset-bottom));
+  --copy-bottom: calc(var(--rail-h) + clamp(1.25rem, 5vh, 3.5rem));
 }
 
 html {
-  scroll-behavior: smooth;
-  /* The sticky book bar would otherwise cover anchored section headings. */
-  scroll-padding-top: 5rem;
+  /* Scrolling is the playhead. Smooth anchor scrolling would fight it. */
+  scroll-behavior: auto;
 }
 
 body {
-  background: var(--color-cream);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  /* Guards against horizontal scroll from full-bleed hero motion. */
-  overflow-x: hidden;
+  margin: 0;
 }
 
-/* Display type is set tight and optically balanced; Fraunces runs wide by default. */
-.font-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  letter-spacing: -0.015em;
+/* ─── Skip link ──────────────────────────────────────────────────────────── */
+.skip {
+  position: fixed;
+  top: var(--sc-3);
+  left: var(--sc-3);
+  z-index: 80;
+  padding: var(--sc-3) var(--sc-4);
+  background: var(--sc-ink);
+  color: var(--sc-canvas);
+  border-radius: var(--sc-r-sm);
+  transform: translateY(-200%);
 }
-
-/*
- * Scroll reveal. Elements start displaced and are released by an
- * IntersectionObserver that sets data-revealed (see useReveal).
- */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 900ms var(--ease-calm),
-    transform 900ms var(--ease-calm);
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-[data-reveal][data-revealed="true"] {
-  opacity: 1;
+.skip:focus-visible {
   transform: none;
 }
 
-:where(a, button):focus-visible {
-  outline: 2px solid var(--color-ochre-deep);
-  outline-offset: 3px;
-  border-radius: 2px;
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.bar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--sc-z-chrome);
+  height: var(--bar-h);
+  padding: env(safe-area-inset-top) var(--sc-gutter) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sc-5);
+  color: var(--sc-ink);
+  transition: color var(--sc-d-base) var(--sc-ease-out);
+}
+/* A scrim under the bar only, never a full-frame wash. */
+.bar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 -60%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--scrim) 62%, transparent), transparent);
+  transition: opacity var(--sc-d-slow) var(--sc-ease-out);
+}
+.bar__mark {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-lg);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.bar__end {
+  display: flex;
+  align-items: center;
+  gap: var(--sc-5);
+}
+.bar__link {
+  font-size: var(--sc-t-sm);
+  text-decoration: none;
+  padding: var(--sc-2);
+  text-underline-offset: 0.35em;
+}
+.bar__link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--sc-accent);
+}
+.bar__lang {
+  font-size: var(--sc-t-xs);
+  font-weight: 500;
+  letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: var(--sc-2);
+}
+.bar__book,
+.w-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: var(--sc-r-sm);
+  background: var(--sc-ink);
+  color: var(--sc-canvas);
+  box-shadow: var(--sc-e1);
+  transition:
+    background-color var(--sc-d-fast) var(--sc-ease-out),
+    color var(--sc-d-fast) var(--sc-ease-out),
+    transform var(--sc-d-fast) var(--sc-ease-out);
+}
+.bar__book {
+  padding: var(--sc-3) var(--sc-5);
+  font-size: var(--sc-t-sm);
+}
+@media (hover: hover) and (pointer: fine) {
+  .bar__book:hover,
+  .w-cta:hover {
+    background: var(--sc-accent);
+    color: var(--sc-accent-ink);
+  }
+  .bar__lang:hover,
+  .bar__link:hover {
+    color: var(--sc-accent);
+  }
+}
+.bar__book:active,
+.w-cta:active {
+  transform: scale(0.97);
 }
 
-/*
- * Anyone who has asked for less motion gets a completely static page: no
- * reveals, no hero drift, no smooth scrolling.
- */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* On the morning hero the chrome inverts to dark ink on haze. */
+html:has(.walk):not([data-ground="dark"]) .bar {
+  color: var(--ink-dark);
+}
+html:has(.walk):not([data-ground="dark"]) .bar::before {
+  opacity: 0;
+}
+html:has(.walk):not([data-ground="dark"]) .bar__book {
+  background: var(--ink-dark);
+  color: #fbf6ef;
+}
 
-  [data-reveal] {
+/* ─── Hero: three planes ─────────────────────────────────────────────────── */
+/* Far: generated sky, pushed in by the engine. Mid: the real house, which
+   rises and grows as the camera walks toward the door. Atmosphere: haze that
+   lifts away faster than either. Different rates, one camera idea. */
+.hero__far {
+  position: absolute;
+  inset: 0;
+}
+.hero__far img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+.hero .hero__house {
+  z-index: 1;
+  object-position: 50% 100%;
+  transform-origin: 46% 78%;
+  transform: translateY(calc(var(--hero-p) * -3vh)) scale(calc(1 + var(--hero-p) * 0.09));
+  will-change: transform;
+}
+.hero__haze {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* Top: the headline's ground. Bottom-left: the subtitle's, over gravel
+     that has dark planting in it. */
+  background:
+    radial-gradient(70% 55% at 50% 12%, rgb(252 247 238 / 0.82), rgb(252 247 238 / 0.42) 55%, transparent 80%),
+    linear-gradient(to bottom, rgb(252 247 238 / 0.5), transparent 46%),
+    radial-gradient(40% 30% at 50% 100%, rgb(252 247 238 / 0.86), rgb(252 247 238 / 0.55) 55%, transparent 100%);
+  /* Outlasts the hero copy (gone by 0.62 of the leg), so the headline never
+     loses its ground mid-fade. */
+  opacity: calc(1 - var(--hero-p) * 0.85);
+  transform: translateY(calc(var(--hero-p) * -9vh));
+  will-change: transform, opacity;
+}
+
+/* ─── Page-side camera moves ─────────────────────────────────────────────────
+   The second bedroom's clip only drifts a few percent, which barely reads on
+   a phone. A slow push across the beds, driven by the leg's own scroll
+   progress, gives it a move that never alters the room. The transform is on
+   the segment, which the engine leaves alone (it owns opacity and z-index). */
+[data-sc-waypoint="twin"] {
+  transform-origin: 32% 60%;
+  transform: scale(calc(1.02 + var(--leg-p, 0) * 0.14)) translateX(calc(var(--leg-p, 0) * 2%));
+}
+
+/* ─── Copy ───────────────────────────────────────────────────────────────── */
+.w-copy {
+  position: absolute;
+  z-index: 2;
+  width: min(34rem, calc(100vw - 2 * var(--sc-gutter)));
+  color: var(--sc-ink);
+  /* Light on dark needs a touch more air and weight than the same type on light. */
+  letter-spacing: 0.004em;
+}
+.w-copy--lead {
+  left: var(--sc-gutter);
+  bottom: var(--copy-bottom);
+}
+.w-copy--trail {
+  right: var(--sc-gutter);
+  bottom: var(--copy-bottom);
+}
+.w-copy--mid-lead {
+  left: var(--sc-gutter);
+  top: 50%;
+  translate: 0 -50%;
+}
+.w-copy--wide {
+  left: var(--sc-gutter);
+  right: var(--sc-gutter);
+  bottom: var(--copy-bottom);
+  width: auto;
+}
+
+.w-hero {
+  inset: calc(var(--bar-h) + clamp(0.5rem, 5vh, 3.5rem)) var(--sc-gutter) calc(var(--rail-h) + var(--sc-3));
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  color: var(--ink-dark);
+  letter-spacing: var(--sc-track-normal);
+}
+.w-finale {
+  width: min(32rem, calc(100vw - 2 * var(--sc-gutter)));
+}
+
+.w-display {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-optical-sizing: auto;
+  font-weight: 340;
+  font-size: clamp(2.1rem, 1.35rem + 2.6vw, 3.7rem);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+.w-display--hero {
+  font-size: clamp(2.6rem, 1.3rem + 4vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.026em;
+}
+.w-display--peak {
+  font-size: clamp(2.4rem, 1.2rem + 4.2vw, 5.2rem);
+  line-height: 1;
+}
+.w-display--sm {
+  font-size: clamp(1.7rem, 1.25rem + 1.4vw, 2.5rem);
+}
+
+.w-eyebrow,
+.w-label {
+  margin: 0 0 var(--sc-4);
+  font-size: var(--sc-t-xs);
+  font-weight: 500;
+  letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase;
+}
+
+.w-lede {
+  margin: 0 auto;
+  max-width: 36ch;
+  font-size: var(--sc-t-lg);
+  line-height: 1.45;
+  color: var(--ink-dark-soft);
+  text-wrap: balance;
+}
+.w-rating {
+  margin: var(--sc-4) 0 0;
+  font-size: var(--sc-t-sm);
+  font-weight: 500;
+  color: var(--ink-dark-soft);
+}
+.w-body {
+  margin: var(--sc-4) 0 0;
+  max-width: 44ch;
+  font-size: var(--sc-t-base);
+  line-height: 1.62;
+  color: var(--sc-ink-soft);
+  text-wrap: pretty;
+}
+.w-prose {
+  margin: 0;
+  max-width: 30ch;
+  font-family: var(--sc-font-display);
+  font-weight: 330;
+  font-size: clamp(1.35rem, 1.05rem + 1vw, 2rem);
+  line-height: 1.42;
+  text-wrap: pretty;
+}
+.w-prose--turn {
+  margin-top: var(--sc-5);
+  font-style: italic;
+  color: var(--sun);
+}
+.w-caption {
+  margin: var(--sc-5) 0 0;
+  font-size: var(--sc-t-sm);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--sc-ink);
+}
+.w-caption--lg {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-weight: 340;
+  font-size: var(--sc-t-xl);
+  letter-spacing: 0;
+}
+.w-small {
+  margin: var(--sc-4) 0 0;
+  font-size: var(--sc-t-xs);
+  line-height: 1.55;
+  color: var(--sc-ink-soft);
+}
+.w-small a {
+  color: var(--sc-ink);
+}
+.w-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.w-coast {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--sc-7) var(--sc-9);
+  align-items: end;
+}
+.w-distances {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--sc-hairline-strong);
+}
+.w-distances li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sc-5);
+  padding: var(--sc-2) 0;
+  border-bottom: 1px solid var(--sc-hairline);
+  font-size: var(--sc-t-sm);
+}
+.w-distances li span:last-child {
+  color: var(--sc-ink-soft);
+}
+
+.w-cta {
+  margin-top: var(--sc-6);
+  padding: var(--sc-4) var(--sc-7);
+  font-size: var(--sc-t-base);
+}
+.w-foot {
+  margin-top: var(--sc-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sc-1);
+  font-size: var(--sc-t-xs);
+  color: var(--sc-ink-soft);
+}
+
+/* The facts sit on their own surface: a list this long cannot be read over
+   moving footage, and a scrim big enough for it would cover the bathroom. */
+.w-panel {
+  position: absolute;
+  z-index: 2;
+  right: var(--sc-gutter);
+  top: calc(var(--bar-h) + var(--sc-3));
+  bottom: calc(var(--rail-h) + var(--sc-3));
+  width: min(31rem, calc(100vw - 2 * var(--sc-gutter)));
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: var(--sc-5) var(--sc-6);
+  border-radius: var(--sc-r-md);
+  background: color-mix(in oklab, var(--sc-surface) 95%, transparent);
+  box-shadow: var(--sc-e3), var(--sc-edge);
+  scrollbar-width: thin;
+}
+.w-panel .w-caption {
+  margin: 0 0 var(--sc-3);
+  color: var(--sun);
+}
+.w-panel .w-label {
+  margin: var(--sc-5) 0 var(--sc-2);
+}
+.w-facts {
+  margin: var(--sc-5) 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: var(--sc-3);
+  border-top: 1px solid var(--sc-hairline-strong);
+  border-bottom: 1px solid var(--sc-hairline-strong);
+}
+.w-facts div {
+  padding: var(--sc-3) 0;
+}
+.w-facts dt {
+  font-size: var(--sc-t-xs);
+  color: var(--sc-ink-soft);
+}
+.w-facts dd {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-xl);
+}
+.w-amenities,
+.w-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--sc-t-sm);
+  line-height: 1.5;
+  color: var(--sc-ink-soft);
+}
+.w-amenities {
+  columns: 2;
+  column-gap: var(--sc-5);
+}
+.w-amenities li {
+  break-inside: avoid;
+  padding: var(--sc-1) 0;
+}
+.w-notes li + li {
+  margin-top: var(--sc-2);
+}
+
+.w-reviews {
+  width: min(38rem, calc(100vw - 2 * var(--sc-gutter)));
+}
+.w-stats {
+  margin: var(--sc-4) 0 0;
+  display: flex;
+  gap: var(--sc-6);
+}
+.w-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.w-stats dt {
+  font-size: var(--sc-t-xs);
+  color: var(--sc-ink-soft);
+}
+.w-stats dd {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-xl);
+}
+
+/* ─── Review carousel ────────────────────────────────────────────────────── */
+.rc__track {
+  margin: var(--sc-5) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.rc__track::-webkit-scrollbar {
+  display: none;
+}
+.rc__slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+.rc__quote {
+  margin: 0;
+}
+.rc__quote p {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-weight: 330;
+  font-size: clamp(1.02rem, 0.92rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.rc__quote footer {
+  margin-top: var(--sc-3);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+.rc__name {
+  color: var(--sc-ink);
+  font-weight: 500;
+}
+.rc__controls {
+  margin-top: var(--sc-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sc-4);
+}
+.rc__dots {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: var(--sc-1);
+}
+.rc__dots button {
+  display: block;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.rc__dots button::before {
+  content: "";
+  display: block;
+  margin: auto;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--sc-ink) 35%, transparent);
+  transition: transform var(--sc-d-fast) var(--sc-ease-out), background-color var(--sc-d-fast) var(--sc-ease-out);
+}
+.rc__dots button[aria-current="true"]::before {
+  background: var(--sun);
+  transform: scale(1.5);
+}
+.rc__arrow {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--sc-hairline-strong);
+  background: none;
+  color: var(--sc-ink);
+  cursor: pointer;
+  transition: border-color var(--sc-d-fast) var(--sc-ease-out), transform var(--sc-d-fast) var(--sc-ease-out);
+}
+.rc__arrow svg {
+  width: 1rem;
+  height: 1rem;
+}
+.rc__arrow:active {
+  transform: scale(0.97);
+}
+.rc__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+@media (hover: hover) and (pointer: fine) {
+  .rc__arrow:not(:disabled):hover {
+    border-color: var(--sc-ink);
+  }
+}
+.rc__flip {
+  transform: rotate(180deg);
+}
+
+/* ─── Scrims: one per window, shaped to where that window's copy sits ────── */
+.w-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+}
+.w-scrim--lead {
+  background: linear-gradient(to top right,
+    color-mix(in oklab, var(--scrim) 94%, transparent) 0%,
+    color-mix(in oklab, var(--scrim) 76%, transparent) 30%,
+    color-mix(in oklab, var(--scrim) 34%, transparent) 54%,
+    transparent 74%);
+}
+.w-scrim--trail {
+  background: linear-gradient(to top left,
+    color-mix(in oklab, var(--scrim) 94%, transparent) 0%,
+    color-mix(in oklab, var(--scrim) 76%, transparent) 30%,
+    color-mix(in oklab, var(--scrim) 34%, transparent) 54%,
+    transparent 74%);
+}
+.w-scrim--left {
+  background: linear-gradient(to right,
+    color-mix(in oklab, var(--scrim) 92%, transparent) 0%,
+    color-mix(in oklab, var(--scrim) 76%, transparent) 34%,
+    color-mix(in oklab, var(--scrim) 36%, transparent) 50%,
+    transparent 68%);
+}
+/* For the two blocks that cross the lit white house at night. */
+.w-scrim--deep {
+  background: linear-gradient(to right,
+    color-mix(in oklab, var(--scrim) 95%, transparent) 0%,
+    color-mix(in oklab, var(--scrim) 88%, transparent) 40%,
+    color-mix(in oklab, var(--scrim) 50%, transparent) 58%,
+    transparent 78%);
+}
+.w-scrim--band {
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--scrim) 95%, transparent) 0%,
+    color-mix(in oklab, var(--scrim) 80%, transparent) 28%,
+    color-mix(in oklab, var(--scrim) 40%, transparent) 50%,
+    transparent 66%);
+}
+
+/* ─── Sun rail ───────────────────────────────────────────────────────────── */
+.rail {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--sc-z-chrome);
+  height: var(--rail-h);
+  padding: 0 var(--sc-gutter) calc(var(--sc-3) + env(safe-area-inset-bottom));
+  color: var(--sc-ink);
+  transition: color var(--sc-d-base) var(--sc-ease-out);
+}
+.rail::before {
+  content: "";
+  position: absolute;
+  inset: -40% 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to top, color-mix(in oklab, var(--scrim) 70%, transparent), transparent);
+  transition: opacity var(--sc-d-slow) var(--sc-ease-out);
+}
+html:has(.walk):not([data-ground="dark"]) .rail {
+  color: var(--ink-dark);
+}
+html:has(.walk):not([data-ground="dark"]) .rail::before {
+  opacity: 0;
+}
+.rail__track {
+  position: relative;
+  height: 2.5rem;
+  margin-top: var(--sc-3);
+  cursor: ew-resize;
+  touch-action: none;
+}
+.rail__arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.rail__arc path {
+  fill: none;
+  stroke: currentColor;
+  stroke-opacity: 0.38;
+  stroke-width: 1;
+  stroke-dasharray: 2 6;
+  vector-effect: non-scaling-stroke;
+}
+/* The arc is drawn in a 1000x60 box stretched to the track; --sun-y is the
+   sun's height on it as a fraction, so it holds at any track height. */
+.rail__sun {
+  position: absolute;
+  left: calc(var(--sun-x, 0) * 100%);
+  top: calc(var(--sun-y, 0.93) * 100%);
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border-radius: 50%;
+  background: var(--sun);
+  box-shadow: 0 2px 6px rgb(20 17 14 / 0.35);
+  cursor: grab;
+}
+.rail__sun:focus-visible {
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+.rail__stops {
+  position: relative;
+  height: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rail__stops li {
+  position: absolute;
+  left: calc(var(--at) * 100%);
+  translate: -50% 0;
+}
+.rail__stops li:first-child {
+  translate: 0 0;
+}
+.rail__stops li:last-child {
+  translate: -100% 0;
+}
+.rail__stops button {
+  display: flex;
+  gap: var(--sc-2);
+  align-items: baseline;
+  padding: var(--sc-1) var(--sc-1);
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: var(--sc-t-xs);
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0.62;
+  transition: opacity var(--sc-d-fast) var(--sc-ease-out);
+}
+/* Stops are dots; only the current hour is spelled out, so close stops
+   (the gallery and the bedrooms sit an hour apart) never collide. */
+.rail__time,
+.rail__label {
+  display: none;
+  font-variant-numeric: tabular-nums;
+}
+.rail__stops button:not([aria-current="step"])::before {
+  content: "";
+  display: block;
+  width: 0.3rem;
+  height: 0.3rem;
+  margin: 0.4rem 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+/* The spelled-out hour sits on a chip so a neighbouring stop's dot never
+   shows through it where stops crowd together on a phone. */
+.rail__stops li:has([aria-current="step"]) {
+  z-index: 1;
+}
+.rail__stops button[aria-current="step"] {
+  opacity: 1;
+  padding-inline: var(--sc-2);
+  border-radius: var(--sc-r-sm);
+  background: color-mix(in oklab, var(--scrim) 88%, transparent);
+}
+html:has(.walk):not([data-ground="dark"]) .rail__stops button[aria-current="step"] {
+  background: rgb(252 247 238 / 0.88);
+}
+.rail__stops button[aria-current="step"] :is(.rail__time, .rail__label) {
+  display: inline;
+}
+.rail__stops button[aria-current="step"] .rail__label {
+  font-weight: 500;
+}
+@media (hover: hover) and (pointer: fine) {
+  .rail__stops button:hover {
     opacity: 1;
-    transform: none;
-    transition: none;
+  }
+}
+
+/* ─── Phones ─────────────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  :root {
+    --bar-h: calc(3.75rem + env(safe-area-inset-top));
+    --rail-h: calc(4.75rem + env(safe-area-inset-bottom));
+  }
+  .bar__mark {
+    font-size: var(--sc-t-base);
+  }
+  .bar__end {
+    gap: var(--sc-3);
+  }
+  .bar__book {
+    padding: var(--sc-2) var(--sc-4);
+    font-size: var(--sc-t-xs);
   }
 
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+
+  /* Corners become the bottom band: both anchors span the width here. */
+  .w-copy--lead,
+  .w-copy--trail,
+  .w-copy--mid-lead {
+    left: var(--sc-gutter);
+    right: var(--sc-gutter);
+    top: auto;
+    bottom: var(--copy-bottom);
+    translate: none;
+    width: auto;
+  }
+  .w-scrim--lead,
+  .w-scrim--trail,
+  .w-scrim--left,
+  .w-scrim--band {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--scrim) 95%, transparent) 0%,
+      color-mix(in oklab, var(--scrim) 85%, transparent) 40%,
+      color-mix(in oklab, var(--scrim) 55%, transparent) 68%,
+      transparent 92%);
+  }
+  /* Reviews and the close run most of the screen's height on a phone. */
+  .w-scrim--deep {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--scrim) 96%, transparent) 0%,
+      color-mix(in oklab, var(--scrim) 88%, transparent) 45%,
+      color-mix(in oklab, var(--scrim) 50%, transparent) 70%,
+      transparent 92%);
+  }
+  .w-coast {
+    grid-template-columns: 1fr;
+    gap: var(--sc-5);
+  }
+  .w-coast .w-body {
+    display: none;
+  }
+  .w-panel {
+    left: var(--sc-gutter);
+    right: var(--sc-gutter);
+    width: auto;
+    padding: var(--sc-5);
+  }
+  .w-amenities {
+    columns: 1;
+  }
+  .w-reviews .w-stats {
+    gap: var(--sc-4);
+  }
+  .w-reviews .rc__quote p {
+    font-size: var(--sc-t-sm);
+  }
+  .rail__stops button {
+    font-size: 0.68rem;
+  }
+}
+
+/* ─── Portrait screens ───────────────────────────────────────────────────────
+   Keyed on shape, not width: a phone turned sideways is narrow enough to hit
+   the phone rules above but is a landscape frame, and gets the desktop
+   composition below instead. */
+@media (max-aspect-ratio: 4/5) {
+  /* The whole house, not a crop of it: the plane is sized so the house and
+     its outbuilding fit the width, anchored on the gravel, and the canopy
+     above the roof fades into the portrait sky. */
+  .hero .hero__house {
+    top: auto;
+    left: 50%;
+    /* Wider than the screen so neither edge of the plane is ever in frame.
+       max-width has to be lifted: the engine caps every img at 100%, which
+       silently shrank this back to the screen width and showed its edge. */
+    width: 140vw;
+    max-width: none;
+    height: auto;
+    translate: -42% 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 24%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 24%);
+  }
+  .hero__haze {
+    background: linear-gradient(to bottom, rgb(252 247 238 / 0.92), rgb(252 247 238 / 0.8) 42%, rgb(252 247 238 / 0.5) 58%, transparent 74%);
+    /* The facts sit lower here, deeper into the canopy: hold the haze longer. */
+    opacity: calc(1 - var(--hero-p) * 0.55);
+  }
+  .w-display--hero {
+    font-size: clamp(2.2rem, 1.4rem + 4vw, 3rem);
+  }
+  /* The house sits low, so the facts follow the headline into the haze. */
+  .w-hero {
+    justify-content: flex-start;
+    gap: var(--sc-4);
+  }
+  .w-lede {
+    font-size: var(--sc-t-base);
+  }
+
+  /* Each clip is centre-cropped to a third of its width here, so every leg
+     names what has to stay in frame: the monkey, the beach, the doors, the
+     paintings, the beds. */
+  [data-sc-waypoint] > :is(img, video) { object-position: 50% 50%; }
+  [data-sc-waypoint="canopy"] > :is(img, video) { object-position: 85% 50%; }
+  [data-sc-waypoint="inside"] > :is(img, video) { object-position: 40% 50%; }
+  [data-sc-waypoint="pool"] > :is(img, video) { object-position: 38% 50%; }
+  [data-sc-waypoint="coast"] > :is(img, video) { object-position: 20% 50%; }
+  [data-sc-waypoint="doors"] > :is(img, video),
+  [data-sc-waypoint="dusk"] > :is(img, video) { object-position: 40% 50%; }
+  [data-sc-waypoint="gallery"] > :is(img, video) { object-position: 75% 50%; }
+  [data-sc-waypoint="king"] > :is(img, video) { object-position: 60% 50%; }
+  [data-sc-waypoint="twin"] > :is(img, video) { object-position: 25% 50%; }
+}
+
+/* Phones on their side: the desktop composition, compressed to fit a frame
+   a few hundred pixels tall. */
+@media (max-height: 500px) and (min-aspect-ratio: 1/1) {
+  :root {
+    --bar-h: calc(3.25rem + env(safe-area-inset-top));
+    --rail-h: calc(4rem + env(safe-area-inset-bottom));
+  }
+  /* The frame is too short for sky above the roof and gravel below the
+     house, so it keeps the sky: the headline sits in the canopy haze above
+     the roofline, the house fills the rest. The subtitle's facts all recur
+     further down the walk, so it gives way here. */
+  .hero .hero__house {
+    object-position: 50% 0%;
+  }
+  .hero__haze {
+    background: linear-gradient(to bottom, rgb(252 247 238 / 0.9), rgb(252 247 238 / 0.7) 30%, transparent 50%);
+  }
+  .w-hero {
+    inset-block-start: calc(var(--bar-h) + 0.25rem);
+    justify-content: flex-start;
+    gap: var(--sc-2);
+  }
+  .w-hero .w-lede {
+    display: none;
+  }
+  .w-hero .w-rating {
+    margin-top: var(--sc-2);
+  }
+  .w-eyebrow {
+    margin-bottom: var(--sc-2);
+  }
+  .w-display--hero {
+    font-size: clamp(1.9rem, 1rem + 3.4vw, 2.6rem);
+  }
+  /* Everything else steps down to fit a frame this short, and the wide
+     blocks use the width they have instead of stacking. */
+  .w-display,
+  .w-display--peak {
+    font-size: clamp(1.5rem, 1rem + 2vw, 2.1rem);
+  }
+  .w-display--sm {
+    font-size: 1.4rem;
+  }
+  .w-prose {
+    max-width: 56ch;
+    font-size: 1.05rem;
+  }
+  .w-prose--turn {
+    margin-top: var(--sc-3);
+  }
+  .w-body {
+    max-width: 60ch;
+    margin-top: var(--sc-2);
+    font-size: var(--sc-t-sm);
+  }
+  .w-coast {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sc-6);
+  }
+  .w-distances li {
+    padding: 0.15rem 0;
+  }
+  .w-small {
+    margin-top: var(--sc-2);
+  }
+  .w-reviews .w-stats {
+    display: none;
+  }
+  .w-reviews .rc__track {
+    margin-top: var(--sc-2);
+  }
+  .w-foot {
+    margin-top: var(--sc-4);
+  }
+  .w-cta {
+    margin-top: var(--sc-4);
+    padding: var(--sc-3) var(--sc-6);
+  }
+  .rail__track {
+    height: 1.6rem;
+    margin-top: var(--sc-1);
+  }
+  .w-panel {
+    top: calc(var(--bar-h) + var(--sc-2));
+    bottom: calc(var(--rail-h) + var(--sc-2));
+  }
+}
+
+/* On short phones the reviews fill nearly the whole screen. */
+@media (max-width: 860px) and (max-height: 700px) {
+  .w-scrim--deep {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--scrim) 96%, transparent) 0%,
+      color-mix(in oklab, var(--scrim) 92%, transparent) 60%,
+      color-mix(in oklab, var(--scrim) 75%, transparent) 85%,
+      color-mix(in oklab, var(--scrim) 45%, transparent) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero__house,
+  .hero__haze,
+  [data-sc-waypoint="twin"] {
+    transform: none;
+  }
+  .hero__haze {
+    opacity: 1;
   }
 }

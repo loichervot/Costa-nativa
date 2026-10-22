@@ -1,0 +1,321 @@
+/*
+ * The blog: an ordinary reading page in the walk's palette and type. Tokens
+ * come from globals.css; nothing here touches the engine.
+ */
+
+/* Off the walk there is no film behind the header, so it gets a ground. */
+html:not(:has(.walk)) .bar {
+  background: color-mix(in oklab, var(--sc-canvas) 94%, transparent);
+  border-bottom: 1px solid var(--sc-hairline);
+}
+html:not(:has(.walk)) .bar::before {
+  display: none;
+}
+
+.blog {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: calc(var(--bar-h) + clamp(2.5rem, 8vh, 6rem)) var(--sc-gutter) var(--sc-10);
+}
+
+/* ─── Index ─────────────────────────────────────────────────────────────── */
+.blog__head {
+  max-width: 44rem;
+  margin-bottom: clamp(3rem, 8vh, 5rem);
+}
+.blog__head .w-eyebrow {
+  color: var(--sc-accent);
+}
+.blog__title,
+.post__title {
+  margin: 0;
+  font-family: var(--sc-font-display);
+  font-optical-sizing: auto;
+  font-weight: 340;
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+.blog__title {
+  font-size: clamp(2.6rem, 1.6rem + 4vw, 5rem);
+}
+.blog__intro {
+  margin: var(--sc-5) 0 0;
+  max-width: 52ch;
+  font-size: var(--sc-t-lg);
+  line-height: 1.5;
+  color: var(--sc-ink-soft);
+}
+
+.blog__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(2.5rem, 6vh, 4.5rem);
+}
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+}
+.card__image {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--sc-r-md);
+  aspect-ratio: 3 / 2;
+  box-shadow: var(--sc-e2);
+}
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--sc-d-slow) var(--sc-ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card__image img {
+    transform: scale(1.03);
+  }
+  .card__title a:hover {
+    color: var(--sc-accent);
+  }
+}
+.card__meta {
+  margin: 0;
+  font-size: var(--sc-t-xs);
+  letter-spacing: 0.04em;
+  color: var(--sc-ink-soft);
+}
+.card__title {
+  margin: var(--sc-3) 0 0;
+  font-family: var(--sc-font-display);
+  font-weight: 360;
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.card__title a {
+  text-decoration: none;
+  transition: color var(--sc-d-fast) var(--sc-ease-out);
+}
+/* The whole card is the target for a pointer; the title link carries it. */
+.card {
+  position: relative;
+}
+.card__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.card__desc {
+  margin: var(--sc-3) 0 0;
+  max-width: 50ch;
+  line-height: 1.6;
+  color: var(--sc-ink-soft);
+}
+
+/* ─── Post ──────────────────────────────────────────────────────────────── */
+.post__head {
+  max-width: 46rem;
+  margin: 0 auto var(--sc-7);
+}
+.post__back {
+  display: inline-block;
+  margin-bottom: var(--sc-5);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-accent);
+  text-decoration: none;
+}
+.post__back::before {
+  content: "← ";
+}
+.post__title {
+  font-size: clamp(2.2rem, 1.4rem + 3.2vw, 4rem);
+}
+.post__head .card__meta {
+  margin-top: var(--sc-5);
+}
+.post__hero {
+  overflow: hidden;
+  border-radius: var(--sc-r-md);
+  box-shadow: var(--sc-e2);
+  margin-bottom: var(--sc-8);
+}
+.post__hero img {
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: cover;
+}
+
+.post__body {
+  max-width: 44rem;
+  margin-inline: auto;
+  font-size: clamp(1.05rem, 1rem + 0.2vw, 1.15rem);
+  line-height: 1.72;
+  color: var(--sc-ink-soft);
+}
+.post__body > p,
+.post__body > ul {
+  margin: 0 0 var(--sc-5);
+  text-wrap: pretty;
+}
+.post__body > p:first-child {
+  font-family: var(--sc-font-display);
+  font-weight: 330;
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  line-height: 1.5;
+  color: var(--sc-ink);
+}
+.post__body h2 {
+  margin: var(--sc-8) 0 var(--sc-4);
+  font-family: var(--sc-font-display);
+  font-weight: 360;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--sc-ink);
+  text-wrap: balance;
+}
+.post__body strong {
+  color: var(--sc-ink);
+  font-weight: 500;
+}
+.post__body a {
+  color: var(--sc-ink);
+  text-decoration-color: var(--sc-accent);
+  text-decoration-thickness: 1px;
+}
+.post__body ul {
+  padding-left: 1.2em;
+}
+.post__body li + li {
+  margin-top: var(--sc-2);
+}
+.post__body li::marker {
+  color: var(--sc-accent);
+}
+
+.post__callout {
+  margin: var(--sc-7) 0;
+  padding: var(--sc-5) var(--sc-6);
+  border-radius: var(--sc-r-md);
+  background: var(--sc-surface);
+  box-shadow: var(--sc-edge);
+}
+.post__callout-title {
+  margin: 0 0 var(--sc-3);
+  font-size: var(--sc-t-xs);
+  font-weight: 500;
+  letter-spacing: var(--sc-track-wide);
+  text-transform: uppercase;
+  color: var(--sc-accent);
+}
+.post__callout p,
+.post__callout ul {
+  margin: 0;
+}
+
+.post__figure {
+  margin: var(--sc-7) 0;
+}
+.post__figure img {
+  width: 100%;
+  height: auto;
+  /* A portrait photo would otherwise be taller than the screen. */
+  max-height: 75vh;
+  object-fit: cover;
+  border-radius: var(--sc-r-md);
+}
+.post__figure figcaption {
+  margin-top: var(--sc-3);
+  font-size: var(--sc-t-sm);
+  line-height: 1.5;
+  color: var(--sc-ink-soft);
+}
+
+.post__stay {
+  margin: var(--sc-9) 0 0;
+  padding: var(--sc-6);
+  border-radius: var(--sc-r-md);
+  background: var(--sc-surface);
+  box-shadow: var(--sc-e2), var(--sc-edge);
+}
+.post__stay-title {
+  margin: 0 0 var(--sc-3);
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-xl);
+  line-height: 1.15;
+  color: var(--sc-ink);
+}
+.post__stay p {
+  margin: 0;
+}
+/* The prose link colour would otherwise paint the button's label bone on bone. */
+.post__stay .w-cta {
+  color: var(--sc-canvas);
+  text-decoration: none;
+}
+
+.post__more {
+  max-width: 44rem;
+  margin: var(--sc-9) auto 0;
+  padding-top: var(--sc-6);
+  border-top: 1px solid var(--sc-hairline);
+}
+.post__more ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.post__more a {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-xl);
+  line-height: 1.25;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .post__more a:hover,
+  .post__back:hover {
+    color: var(--sc-ink);
+  }
+}
+
+.blog-foot {
+  border-top: 1px solid var(--sc-hairline);
+  padding: var(--sc-7) var(--sc-gutter) calc(var(--sc-7) + env(safe-area-inset-bottom));
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+.blog-foot p {
+  margin: 0 0 var(--sc-2);
+}
+.blog-foot__mark {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-lg);
+  color: var(--sc-ink);
+}
+.blog-foot a {
+  color: var(--sc-ink);
+}
+.blog-foot__small {
+  font-size: var(--sc-t-xs);
+}
+
+@media (max-width: 860px) {
+  .card {
+    grid-template-columns: 1fr;
+    gap: var(--sc-4);
+  }
+  .post__hero {
+    margin-inline: calc(-1 * var(--sc-gutter));
+    border-radius: 0;
+  }
+  .post__callout,
+  .post__stay {
+    padding: var(--sc-5);
+  }
+}
