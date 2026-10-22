@@ -1,10 +1,12 @@
-import { Fraunces, Inter } from "next/font/google";
+import type { Viewport } from "next";
+import { Fraunces, Geist } from "next/font/google";
 
 import { isLocale, locales } from "@/lib/dictionaries";
+import "../scrollcraft.css";
 import "../globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
   display: "swap",
 });
@@ -12,9 +14,9 @@ const inter = Inter({
 /**
  * Only the `opsz` axis is requested. Fraunces also ships `SOFT` and `WONK`
  * character axes, but nothing here varies them, and carrying them cost ~70KB
- * of font that competed with the hero image on mobile. `opsz` earns its place:
- * globals.css drives it through `font-optical-sizing: auto`, which is what
- * keeps the 72px hero headline from looking like scaled-up body copy.
+ * of font. `opsz` earns its place: globals.css drives it through
+ * `font-optical-sizing: auto`, which keeps the large display lines from
+ * looking like scaled-up body copy.
  */
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -22,6 +24,13 @@ const fraunces = Fraunces({
   display: "swap",
   axes: ["opsz"],
 });
+
+// The film runs under the notch and the home bar; globals.css insets the
+// chrome and the copy by the safe areas.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  themeColor: "#14110e",
+};
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -31,11 +40,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   const { lang } = await params;
 
   return (
-    <html
-      lang={isLocale(lang) ? lang : "en"}
-      className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
-    >
-      <body className="min-h-full">{children}</body>
+    <html lang={isLocale(lang) ? lang : "en"} className={`${geist.variable} ${fraunces.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

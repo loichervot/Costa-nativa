@@ -59,31 +59,28 @@ export function ReviewCarousel({
       role="group"
       aria-roledescription="carousel"
       aria-label={labels.carousel}
-      className="mt-14"
     >
       <ul
         ref={scroller}
         tabIndex={0}
-        className="flex snap-x snap-mandatory overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="rc__track"
       >
         {reviews.map((review, i) => (
           <li
             key={review.name + i}
             aria-label={`${i + 1} / ${reviews.length}`}
             aria-roledescription="slide"
-            className="w-full shrink-0 snap-center px-1"
+            className="rc__slide"
           >
-            <blockquote className="mx-auto max-w-[58ch] text-center">
-              <p className="font-display text-xl leading-[1.6] text-ink sm:text-2xl sm:leading-[1.55]">
+            <blockquote className="rc__quote">
+              <p>
                 “{review.quote}”
               </p>
-              <footer className="mt-8 text-sm tracking-wide text-ink-soft">
-                <span className="font-medium text-ink">{review.name}</span>
+              <footer>
+                <span className="rc__name">{review.name}</span>
                 {(review.date || review.tenure) && (
                   <>
-                    <span aria-hidden="true" className="mx-2 text-ink-soft/50">
-                      ·
-                    </span>
+                    <span aria-hidden="true"> · </span>
                     {review.date ?? review.tenure}
                   </>
                 )}
@@ -93,7 +90,7 @@ export function ReviewCarousel({
         ))}
       </ul>
 
-      <div className="mt-10 flex items-center justify-center gap-6">
+      <div className="rc__controls">
         <Arrow
           direction="prev"
           label={labels.prev}
@@ -101,7 +98,7 @@ export function ReviewCarousel({
           onClick={() => goTo(index - 1)}
         />
 
-        <ol className="flex items-center gap-2.5">
+        <ol className="rc__dots">
           {reviews.map((review, i) => (
             <li key={review.name + i}>
               <button
@@ -109,9 +106,6 @@ export function ReviewCarousel({
                 aria-label={`${labels.goTo} ${i + 1}`}
                 aria-current={i === index}
                 onClick={() => goTo(i)}
-                className={`block h-1.5 rounded-full transition-all duration-500 ${
-                  i === index ? "w-6 bg-ochre-deep" : "w-1.5 bg-ink/25 hover:bg-ink/45"
-                }`}
               />
             </li>
           ))}
@@ -145,12 +139,12 @@ function Arrow({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-ink/20 text-ink transition-colors duration-300 hover:border-ink/50 disabled:pointer-events-none disabled:opacity-25"
+      className="rc__arrow"
     >
       <svg
         viewBox="0 0 16 16"
         aria-hidden="true"
-        className={`h-4 w-4 ${direction === "next" ? "" : "rotate-180"}`}
+        className={direction === "next" ? undefined : "rc__flip"}
         fill="none"
         stroke="currentColor"
         strokeWidth="1.5"

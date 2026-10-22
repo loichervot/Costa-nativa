@@ -49,3 +49,11 @@ next-env.d.ts
 # Netlify CLI writes .netlify/state.json when you link or create a site.
 # It is machine-local and must not be committed.
 /.netlify
+
+# scroll-craft working files. Raw generations (out/), the harness's
+# screenshot runs (lab/, gigabytes) and the encode staging folder (assets/,
+# a copy of what ships in public/walk). The brief, tools and the fingerprint
+# registry are committed; these are regenerable or already shipped.
+/scrollcraft/builds/*/out
+/scrollcraft/builds/*/lab
+/scrollcraft/builds/*/assets

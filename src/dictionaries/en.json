@@ -1,26 +1,32 @@
 {
   "meta": {
-    "title": "Costa Nativa — Architect-designed house with private pool, Brasilito, Guanacaste",
+    "title": "Costa Nativa · Architect-designed house with private pool, Brasilito, Guanacaste",
     "description": "A calm two-bedroom house with a private pool, set in five thousand square metres of Guanacaste forest, three minutes from Playa Brasilito. Sleeps five. Book on Airbnb.",
     "ogAlt": "Costa Nativa at dusk, the lit pool reflecting the open living space"
   },
   "nav": {
-    "house": "The house",
-    "pool": "Pool & terrace",
-    "rooms": "Rooms",
-    "setting": "The setting",
-    "details": "Details",
-    "reviews": "Reviews",
+    "blog": "Blog",
     "book": "Book on Airbnb",
-    "sections": "Sections",
-    "skipToContent": "Skip to content",
-    "switchTo": "Ver en español"
+    "skipToContent": "Skip to booking",
+    "switchTo": "Ver en español",
+    "day": "A day at the house",
+    "dayHint": "Drag the sun to move through the day"
   },
+  "stops": [
+    { "time": "07:00", "label": "Arrival" },
+    { "time": "07:30", "label": "Morning" },
+    { "time": "09:00", "label": "Inside" },
+    { "time": "12:00", "label": "Pool" },
+    { "time": "15:00", "label": "Coast" },
+    { "time": "17:30", "label": "Evening" },
+    { "time": "19:00", "label": "Gallery" },
+    { "time": "21:00", "label": "Rest" },
+    { "time": "22:00", "label": "Stay" }
+  ],
   "hero": {
     "eyebrow": "Brasilito · Guanacaste, Costa Rica",
     "title": "A house that opens to the trees.",
-    "subtitle": "Two bedrooms, a private pool, and five thousand square metres of forest — three minutes from Playa Brasilito.",
-    "scroll": "Look inside"
+    "subtitle": "Two bedrooms, a private pool and five thousand square metres of forest, three minutes from Playa Brasilito."
   },
   "rating": {
     "score": "4.96",
@@ -28,100 +34,53 @@
     "superhost": "Superhost"
   },
   "opening": {
-    "body": "There is a moment, usually on the second morning, when you stop reaching for your phone. The house is quiet except for the birds. The doors are already open — they tend to stay open here — and the pool is holding the shape of the trees above it.\n\nThat is what Costa Nativa is for."
+    "body": "There is a moment, usually on the second morning, when you stop reaching for your phone. The house is quiet except for the birds, the doors are already open, and the pool is holding the shape of the trees above it.\n\nThat is what Costa Nativa is for."
   },
   "house": {
-    "eyebrow": "The house",
     "title": "Open, and then more open.",
-    "body": "The main living space has no hard edge. Sliding glass doors fold back until the kitchen, the sofa and the terrace are a single room and the breeze moves through all of it. The ceilings are high, light arrives from three sides, and nothing is closed off unless you decide it should be.",
-    "alt": {
-      "kitchenLivingWide": "The open-plan kitchen and living area, with a white quartz island, wooden cabinetry and a large framed artwork on the far wall",
-      "livingToEntry": "The living room looking toward the kitchen and the solid wood front door, with artworks either side of the television",
-      "livingPoolView": "The living room with the sliding glass doors drawn back, opening onto the terrace and pool beyond"
-    }
+    "body": "The living space has no hard edge. Glass doors slide back until the kitchen, the sofa and the terrace are one room and the breeze moves through all of it. High ceilings, light from three sides."
   },
   "pool": {
-    "eyebrow": "Pool & terrace",
     "title": "The centre of the day.",
-    "body": "The pool sits in the shade of the trees, a few steps from the dining table and the grill. Mornings are for coffee out here. Afternoons are for not moving very much. After dark the water lights up and the terrace quietly becomes the best room in the house.",
-    "alt": {
-      "poolDay": "The turquoise mosaic pool in daylight, with the covered terrace, dining table and kitchen visible beyond",
-      "terraceNight": "The terrace at night, the pool lit blue, with lounge seating, a long wooden dining table and framed artworks on the wall",
-      "terraceWide": "The full width of the covered terrace, with a gas grill, a six-seat dining table and a blue outdoor sofa"
-    }
+    "body": "In the shade of the trees, a few steps from the table and the grill. Coffee out here in the morning. Not moving very much in the afternoon."
   },
-  "rooms": {
-    "eyebrow": "Rooms",
-    "title": "Built for sleeping well.",
-    "body": "A king bed in the main room, a queen and a single in the second. Both have blackout shades, noise insulation and air conditioning, and both are made up with premium cotton linens. Two full bathrooms. Five people, comfortably.",
-    "bedroomOne": "Main bedroom — king bed, ensuite",
-    "bedroomTwo": "Second bedroom — queen bed and single bed",
-    "bathrooms": "Two full bathrooms",
-    "alt": {
-      "bedroomKing": "The main bedroom with a king bed, upholstered headboard and three framed artworks above it, opening to an ensuite with a round backlit mirror",
-      "bedroomTwo": "The second bedroom with two beds dressed in teal, a row of small framed works on the wall and an ensuite beyond",
-      "bathroom": "A bathroom with a polished concrete partition, white towels and a small framed artwork"
-    }
+  "setting": {
+    "title": "Three minutes to the water.",
+    "body": "Playa Brasilito has a small town square, good restaurants, boards and boat trips. Playa Conchal, the beach of crushed shells, is around the headland. The house sits in Catalina Cove, a gated community with round-the-clock security.",
+    "distances": [
+      { "place": "Playa Brasilito", "detail": "3 min" },
+      { "place": "Playa Conchal", "detail": "10 min" },
+      { "place": "Playa Flamingo", "detail": "15 min" },
+      { "place": "Las Catalinas", "detail": "20 min" },
+      { "place": "Tamarindo", "detail": "35 min" },
+      { "place": "Liberia airport (LIR)", "detail": "1 hr" }
+    ],
+    "distancesNote": "Approximate driving times. They depend on the season and the road."
+  },
+  "evening": {
+    "line": "This is the hour you came for.",
+    "body": "The doors stay open, the light goes, and the pool turns the terrace into the best room in the house."
   },
   "design": {
     "eyebrow": "A note on the house",
     "title": "Designed, not decorated.",
-    "body": "Costa Nativa was drawn by the Costa Rican architects Murillo + Sanabria in 2021, around a private collection of work by the artist Jacques Hervot. The white walls and the plain detailing are deliberate — they are there so the paintings can speak. You will find them in every room, including the ones you would not expect.",
-    "alt": "The covered terrace lounge, two framed works on the white wall above a blue sofa, the garden beyond"
+    "body": "Drawn in 2021 by the Costa Rican architects Murillo + Sanabria, around a private collection of work by the artist Jacques Hervot. The white walls are there so the paintings can speak. You will find them in every room.",
+    "label": "Jacques Hervot · private collection"
   },
-  "setting": {
-    "eyebrow": "The setting",
-    "title": "Three minutes to the water.",
-    "body": "Playa Brasilito is a three-minute drive — a small town square, a handful of good restaurants, boards and boat trips for hire. Playa Conchal, the one made of crushed shells, is around the headland. The house itself sits inside Catalina Cove, a gated community with round-the-clock security, on five thousand square metres of endemic Guanacaste and Brasilito trees full of birds and, most mornings, monkeys.",
-    "distances": [
-      {
-        "place": "Playa Brasilito",
-        "detail": "3 min drive"
-      },
-      {
-        "place": "Playa Conchal",
-        "detail": "10 min drive"
-      },
-      {
-        "place": "Playa Flamingo",
-        "detail": "15 min drive"
-      },
-      {
-        "place": "Las Catalinas",
-        "detail": "20 min drive"
-      },
-      {
-        "place": "Tamarindo",
-        "detail": "35 min drive"
-      },
-      {
-        "place": "Liberia airport (LIR)",
-        "detail": "1 hr drive"
-      }
-    ],
-    "distancesNote": "Driving times are approximate and depend on the season and the road.",
-    "alt": "Aerial view of the Guanacaste coastline, white sand curving into turquoise water with forested headlands and offshore islands"
+  "rooms": {
+    "title": "Built for sleeping well.",
+    "body": "Blackout shades, noise insulation, air conditioning and premium cotton linens in both bedrooms. Five people, comfortably.",
+    "bedroomOne": "Main bedroom: king bed, ensuite",
+    "bedroomTwo": "Second bedroom: queen bed and single bed",
+    "bathrooms": "Two full bathrooms"
   },
   "details": {
-    "eyebrow": "Details",
     "title": "What you get.",
     "facts": [
-      {
-        "label": "Guests",
-        "value": "5"
-      },
-      {
-        "label": "Bedrooms",
-        "value": "2"
-      },
-      {
-        "label": "Bathrooms",
-        "value": "2"
-      },
-      {
-        "label": "Beds",
-        "value": "3"
-      }
+      { "label": "Guests", "value": "5" },
+      { "label": "Bedrooms", "value": "2" },
+      { "label": "Bathrooms", "value": "2" },
+      { "label": "Beds", "value": "3" }
     ],
     "amenitiesTitle": "Included",
     "amenities": [
@@ -133,7 +92,7 @@
       "Free parking on site",
       "Gas grill",
       "Outdoor dining",
-      "Roku Streambar — Netflix, Disney+, HBO Max, Prime",
+      "Roku Streambar: Netflix, Disney+, HBO Max, Prime",
       "Blackout shades",
       "Noise insulation",
       "Premium cotton linens",
@@ -145,29 +104,15 @@
       "The laundry is available on stays of more than one week.",
       "The community asks for no parties or loud music after 10pm.",
       "Rates, availability and house rules are all on the Airbnb listing."
-    ],
-    "alt": "The front of the house from the gravel driveway, low white volumes under tall trees with planting along the entrance"
+    ]
   },
   "reviews": {
-    "eyebrow": "Guests",
-    "title": "What people say.",
+    "title": "What guests say.",
     "stats": [
-      {
-        "label": "Overall",
-        "value": "4.96"
-      },
-      {
-        "label": "Cleanliness",
-        "value": "5.0"
-      },
-      {
-        "label": "Accuracy",
-        "value": "5.0"
-      },
-      {
-        "label": "Location",
-        "value": "4.9"
-      }
+      { "label": "Overall", "value": "4.96" },
+      { "label": "Cleanliness", "value": "5.0" },
+      { "label": "Accuracy", "value": "5.0" },
+      { "label": "Location", "value": "4.9" }
     ],
     "carousel": "Guest reviews",
     "prev": "Previous review",
@@ -178,15 +123,26 @@
     "readAll": "Read all reviews on Airbnb"
   },
   "cta": {
-    "eyebrow": "Costa Nativa",
     "title": "Come and stay.",
     "body": "Dates, rates and availability are on Airbnb, where your booking and payment are protected end to end.",
-    "button": "Book on Airbnb",
-    "alt": "The house at dusk seen head-on, warm light spilling from the open living space onto the lit pool"
+    "button": "Book on Airbnb"
+  },
+  "alt": {
+    "hero": "The front of the house in morning light, low white volumes under tall trees, a gravel drive and planting by the door",
+    "canopy": "Morning sun through the canopy of the Guanacaste trees, a howler monkey resting on a high branch",
+    "inside": "The open kitchen and living room, a white quartz island, wooden cabinetry and a large framed painting",
+    "pool": "The turquoise mosaic pool in daylight, the covered terrace and dining table beyond",
+    "coast": "Aerial view of Playa Brasilito, a long curve of sand, deep blue water and a small forested island",
+    "doors": "The living room as the sliding glass doors open onto the terrace and the pool",
+    "dusk": "The same living room at dusk, warm lights on inside and the pool lit turquoise",
+    "gallery": "The terrace at night, framed paintings by Jacques Hervot on the white wall, the lit pool in front",
+    "king": "The main bedroom, a king bed under three framed paintings, the ensuite with a round backlit mirror beyond",
+    "twin": "The second bedroom, a queen bed and a single bed in teal, a row of small framed works on the wall",
+    "evening": "The house at dusk from across the pool, warm light filling the open living room and the pool lit turquoise",
+    "night": "The house at dusk from the garden, warm light spilling from the open living space onto the lit pool"
   },
   "footer": {
     "tagline": "Brasilito · Guanacaste · Costa Rica",
-    "rights": "All rights reserved.",
-    "logoAlt": "Costa Nativa"
+    "rights": "All rights reserved."
   }
 }
